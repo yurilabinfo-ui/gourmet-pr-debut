@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>🌱 入部案内｜グルメPRデビュー部 部室</title>
+<style>
+  :root{
+    --cream:#FFF8EE;
+    --paper:#FFFFFF;
+    --lemon:#F5C94E;
+    --lemon-dark:#E0A82E;
+    --tomato:#E8604C;
+    --ink:#4A3B2A;
+    --ink-soft:#8A7A64;
+    --line-green:#06C755;
+    --border:#F0E3CC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.8;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px 60px;}
+
+  /* ===== 合言葉ゲート ===== */
+  #gate{
+    position:fixed;inset:0;background:var(--cream);z-index:100;
+    display:flex;align-items:center;justify-content:center;padding:24px;
+  }
+  .gate-card{
+    background:var(--paper);border-radius:20px;padding:40px 28px;
+    max-width:380px;width:100%;text-align:center;
+    box-shadow:0 8px 30px rgba(74,59,42,.10);
+    border:1px solid var(--border);
+  }
+  .gate-card .emoji{font-size:44px;}
+  .gate-card h1{font-size:19px;margin:12px 0 4px;}
+  .gate-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+  .gate-card input{
+    width:100%;padding:13px 16px;font-size:16px;border:2px solid var(--border);
+    border-radius:12px;text-align:center;letter-spacing:2px;outline:none;
+  }
+  .gate-card input:focus{border-color:var(--lemon);}
+  .gate-card button{
+    width:100%;margin-top:14px;padding:13px;font-size:15px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border:none;border-radius:12px;cursor:pointer;
+  }
+  .gate-card button:active{background:var(--lemon-dark);}
+  #gate-error{color:var(--tomato);font-size:12px;margin-top:10px;display:none;}
+
+  /* ===== ヘッダー ===== */
+  header{
+    background:linear-gradient(135deg,#FFE9A8 0%,#FFD97A 100%);
+    padding:36px 18px 30px;text-align:center;
+    border-radius:0 0 28px 28px;margin-bottom:20px;
+  }
+  header .badge{
+    display:inline-block;background:var(--paper);border-radius:999px;
+    padding:4px 14px;font-size:11px;font-weight:bold;color:var(--ink-soft);
+    letter-spacing:1px;margin-bottom:10px;
+  }
+  header h1{font-size:24px;letter-spacing:1px;}
+  header p{font-size:12.5px;color:#7A6230;margin-top:6px;}
+
+  /* ===== 部室ナビ ===== */
+  .club-nav{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:30px;
+  }
+  @media(min-width:520px){.club-nav{grid-template-columns:repeat(4,1fr);}}
+  .club-nav a,.club-nav span{
+    text-decoration:none;background:var(--paper);color:var(--ink);
+    font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
+    border:1px solid var(--border);text-align:center;display:block;line-height:1.4;
+  }
+  .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
+  .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
+  .club-nav span.soon{opacity:.45;}
+  .club-nav span.soon small{display:block;font-size:9.5px;color:var(--ink-soft);font-weight:normal;}
+
+  /* ===== セクション共通 ===== */
+  section{margin-bottom:38px;}
+  h2{
+    font-size:18px;display:flex;align-items:center;gap:8px;
+    padding-bottom:8px;border-bottom:3px solid var(--lemon);margin-bottom:16px;
+  }
+  .card{
+    background:var(--paper);border-radius:16px;padding:20px;
+    border:1px solid var(--border);margin-bottom:14px;
+  }
+  .card h3{font-size:15px;margin-bottom:8px;}
+  .card p{font-size:14px;}
+  .tag{
+    display:inline-block;background:#FFF1CC;color:#9A7B1E;font-size:10.5px;
+    font-weight:bold;padding:2px 10px;border-radius:999px;margin-bottom:6px;
+  }
+  .btn{
+    display:inline-block;margin-top:10px;padding:10px 22px;font-size:13.5px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border-radius:999px;text-decoration:none;border:none;cursor:pointer;
+  }
+  .placeholder{
+    border:2px dashed var(--border);background:transparent;color:var(--ink-soft);
+    text-align:center;font-size:13px;padding:26px 16px;border-radius:16px;margin-bottom:14px;
+  }
+  .point{
+    background:#FFF6DE;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:10px;
+  }
+  .point b{color:#9A7B1E;}
+  pre{
+    background:#FBF6EC;border:1px solid var(--border);border-radius:12px;
+    padding:16px;font-size:12.5px;line-height:1.7;white-space:pre-wrap;
+    font-family:inherit;margin-top:10px;
+  }
+  .copy-btn{
+    margin-top:8px;padding:8px 18px;font-size:12px;font-weight:bold;
+    background:var(--ink);color:#fff;border:none;border-radius:999px;cursor:pointer;
+  }
+  .copy-btn.done{background:var(--line-green);}
+  ul.simple{padding-left:20px;font-size:14px;}
+  ul.simple li{margin-bottom:6px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--paper);}
+  th{background:#FFF6DE;padding:10px 12px;text-align:left;font-size:12.5px;border-bottom:1px solid var(--border);}
+  td{padding:10px 12px;border-bottom:1px solid #F7EFDE;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .table-card{background:var(--paper);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:14px;}
+
+  .walk{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #F7EFDE;}
+  .walk:last-child{border-bottom:none;}
+  .walk .num{width:28px;height:28px;background:var(--lemon);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;flex-shrink:0;}
+  .walk b{font-size:14px;}
+  .walk p{font-size:13px;color:var(--ink-soft);}
+
+  footer{
+    text-align:center;font-size:11.5px;color:var(--ink-soft);
+    padding:30px 18px 10px;border-top:1px solid var(--border);margin-top:20px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 合言葉ゲート ===== -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="emoji">🍽</div>
+    <h1>グルメPRデビュー部 部室</h1>
+    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
+    <button onclick="checkPw()">部室に入る</button>
+    <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<header>
+  <div class="badge">部員専用 MEMBERS ONLY</div>
+  <h1>🌱 入部案内</h1>
+  <p>はじめての人は、まずこのページを読んでね</p>
+</header>
+
+<div class="wrap">
+
+<!-- ===== 部室ナビ ===== -->
+<nav class="club-nav">
+  <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
+  <a href="nyubu.html" class="here"><span class="icon">🌱</span>入部案内</a>
+  <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
+  <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
+  <a href="archive.html"><span class="icon">🎬</span>アーカイブ室</a>
+  <a href="pr.html"><span class="icon">🍋</span>PRのトリセツ</a>
+  <a href="money.html"><span class="icon">💰</span>お金の話</a>
+  <a href="index.html#pr-report"><span class="icon">🎉</span>初PR報告</a>
+</nav>
+
+<!-- ===== ようこそ ===== -->
+<section id="welcome">
+  <h2>🍽 ようこそ、グルメPRデビュー部へ</h2>
+  <div class="placeholder">🎬 ウェルカム動画をここに埋め込み<br>（YouTube限定公開・撮れるまではこのままでOK）</div>
+  <div class="card">
+    <p>この部活のコンセプトは、<b>「PRをもらって、ちょっと豊かになる」</b>。</p>
+    <p style="margin-top:8px;">大好きな「食べること」をインスタで発信していたら、お店から「うちに来ませんか？」と声がかかる。いつものランチが、ご招待のごちそうになる。そんな<b>「ちょっと豊か」な日常</b>を、みんなで目指す部活です。</p>
+    <div class="point"><b>この部活のゴール：</b>目指すのは「初PRをもらうこと」。フォロワーを増やす活動ももちろんやるけど、数字はゴールじゃなくPRへの通り道。実際、フォロワー500人前後でお店から声がかかった例もあります。</div>
+  </div>
+</section>
+
+<!-- ===== 部室の歩き方 ===== -->
+<section id="walk">
+  <h2>👟 部室の歩き方</h2>
+  <div class="card">
+    <div class="walk">
+      <span class="num">1</span>
+      <div><b>入部したら → 「はじめの30日」へ</b>
+      <p>最初の1ヶ月でやることを週ごとにまとめています。迷ったらここに戻る。</p></div>
+    </div>
+    <div class="walk">
+      <span class="num">2</span>
+      <div><b>毎月1日ごろ → 「今月の部活」をチェック</b>
+      <p>今月のテーマ・新着動画・イベント予告はぜんぶトップページに載ります。</p></div>
+    </div>
+    <div class="walk">
+      <span class="num">3</span>
+      <div><b>つまずいたら → 「攻略MAP＋教材」で調べる</b>
+      <p>撮り方・Canva・リール・PRのルールまで、辞書のように使ってください。</p></div>
+    </div>
+    <div class="walk">
+      <span class="num">4</span>
+      <div><b>わからなかったら → オプチャで質問</b>
+      <p>質問はみんなの財産。「こんなこと聞いていいのかな」ほど価値があります。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== オプチャの使い方 ===== -->
+<section id="openchat">
+  <h2>💬 オプチャの使い方</h2>
+  <div class="card">
+    <h3>まずは自己紹介からどうぞ</h3>
+    <p>入部したら、下のテンプレをコピーして自己紹介を投稿してね。仲間に知ってもらうことが、応援し合いのスタートです。</p>
+    <pre id="tpl-intro">🍽 はじめまして！
+【呼ばれたい名前】
+【住んでるエリア】◯◯（ざっくりでOK）
+【好きな食べもの・お店のジャンル】
+【インスタ】やってる（@◯◯）／これから作る
+【ひとこと】</pre>
+    <button class="copy-btn" onclick="copyText('tpl-intro',this)">📋 自己紹介テンプレをコピー</button>
+  </div>
+  <div class="card">
+    <h3>質問するときのコツ</h3>
+    <ul class="simple">
+      <li>質問は<b>オプチャに直接</b>どうぞ（個別DMより、みんなの勉強になります）</li>
+      <li>「◯◯がわからない」だけでOK。うまく説明できなくて大丈夫</li>
+      <li>スクショを付けると答えやすいです（個人情報は隠してね）</li>
+      <li>仲間の質問に「私もそれ知りたい」の一言も立派な参加です</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 部のルール ===== -->
+<section id="rules">
+  <h2>📏 部のルール</h2>
+  <div class="card">
+    <ul class="simple">
+      <li><b>それぞれのペースを尊重する</b>：投稿の頻度もフォロー・コメントも、するしないは自由。強制はありません</li>
+      <li><b>比べない</b>：他の部員と進み具合を比べて落ち込む必要はゼロ。昨日の自分と比べよう</li>
+      <li><b>やさしい言葉で</b>：誹謗中傷・マウント・押し付けはNG</li>
+      <li><b>パクらない</b>：投稿の文章・画像の丸写しはダメ。「型」は真似してOK、「言葉」は自分のものを</li>
+      <li><b>勧誘・販売はしない</b>：オプチャ内での商品販売・他サービスへの勧誘は禁止</li>
+      <li><b>部室のことは部員だけの秘密</b>：URL・合言葉はもちろん、<b>中身（教材・テンプレ・録画・スクショ）も部外への共有・転載はNG</b>です。ここにあるのは部員だけの財産。「友達にちょっと見せる」もナシでお願いします</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 会費でできること ===== -->
+<section id="fee">
+  <h2>💴 会費でできること</h2>
+  <div class="table-card">
+    <table>
+      <tr><th>会費に含まれるもの</th><th>別料金のもの</th></tr>
+      <tr>
+        <td>
+          ・部室サイトの全コンテンツ見放題<br>
+          ・イベント録画のアーカイブ視聴<br>
+          ・オプチャでの質問・交流<br>
+          ・月イチ開催のオンラインイベント参加
+        </td>
+        <td>
+          ・個別相談・個別添削<br>
+          ・リアル開催の会（実費など）<br>
+          ※募集するときは必ず金額を明記します。<br>知らないうちにお金がかかることはありません
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="placeholder">✏️ 会費の金額・イベントの内容はゆりさんが確定させて記入</div>
+</section>
+
+<!-- ===== 更新・退会 ===== -->
+<section id="renewal">
+  <h2>🔄 更新・退会について</h2>
+  <div class="card">
+    <p>この部活は<b>1ヶ月ごとの更新制</b>です。「今月も居たいな」と思ってもらえるように毎月新しいコンテンツをお届けしますが、続けるかどうかは毎月あなたが選べます。</p>
+    <h3 style="margin-top:14px;">更新のしかた</h3>
+    <ul class="simple" style="margin-top:6px;">
+      <li><b>毎月20日</b>ごろ、オプチャに更新のご案内（PayPay・銀行振込の振込先）が届きます</li>
+      <li><b>期限は25日</b>。お支払いしたら、オプチャで「支払いました」と報告してね</li>
+      <li>更新した人には、翌月の合言葉が届きます</li>
+      <li>クレジットカード払いは準備中です。使えるようになったら案内します</li>
+    </ul>
+    <h3 style="margin-top:14px;">退会について</h3>
+    <ul class="simple" style="margin-top:6px;">
+      <li>25日までにお支払いがない場合は「今月で卒業」となり、<b>月末23:59にオプチャ退会</b>となります（手続き不要）</li>
+      <li>退会後も、それまでに学んだことはぜんぶあなたのもの。いつでもまた戻ってきてね</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  🍽 グルメPRデビュー部｜すみれもん<br>
+  URL・合言葉・部室の中身（教材・スクショ）は、部員だけのひみつだよ
+</footer>
+
+</div>
+
+<script>
+  const MONTH_HASHES = {
+    "2026-07":"1gg0ouu",
+    "2026-08":"16eci0",
+    "2026-09":"1yvqjop",
+    "2026-10":"1mq4phq",
+    "2026-11":"pj0jcg",
+    "2026-12":"pfgine",
+    "2027-01":"iozeqs",
+    "2027-02":"1r6tt0v",
+    "2027-03":"18mzzbt",
+    "2027-04":"10fcuer",
+    "2027-05":"oewxte",
+    "2027-06":"jxefly",
+    "2027-07":"1t4eu7h"
+  };
+  function hashPw(s){let x=5381;for(const ch of s){x=(((x<<5)+x)^ch.codePointAt(0))>>>0}return x.toString(36)}
+  function currentHash(){
+    const d = new Date();
+    const key = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0");
+    if(MONTH_HASHES[key]) return MONTH_HASHES[key];
+    const keys = Object.keys(MONTH_HASHES).sort();
+    return MONTH_HASHES[keys[keys.length-1]];
+  }
+  function checkPw(){
+    const v = document.getElementById("pw").value.trim().toLowerCase();
+    if(hashPw(v) === currentHash()){
+      sessionStorage.setItem("gclub","ok");
+      enter();
+    }else{
+      document.getElementById("gate-error").style.display = "block";
+    }
+  }
+  function enter(){
+    document.getElementById("gate").style.display = "none";
+    document.getElementById("content").style.display = "block";
+  }
+  if(sessionStorage.getItem("gclub") === "ok") enter();
+  document.getElementById("pw").addEventListener("keydown", e => { if(e.key === "Enter") checkPw(); });
+
+  function copyText(id, btn){
+    navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => {
+      btn.textContent = "✅ コピーしました";
+      btn.classList.add("done");
+      setTimeout(() => { btn.textContent = "📋 テンプレをコピー"; btn.classList.remove("done"); }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>🚀 はじめの30日｜グルメPRデビュー部 部室</title>
+<style>
+  :root{
+    --cream:#FFF8EE; --paper:#FFFFFF; --lemon:#F5C94E; --lemon-dark:#E0A82E;
+    --tomato:#E8604C; --ink:#4A3B2A; --ink-soft:#8A7A64; --line-green:#06C755; --border:#F0E3CC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.8;}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px 60px;}
+  #gate{position:fixed;inset:0;background:var(--cream);z-index:100;
+    display:flex;align-items:center;justify-content:center;padding:24px;}
+  .gate-card{background:var(--paper);border-radius:20px;padding:40px 28px;max-width:380px;width:100%;
+    text-align:center;box-shadow:0 8px 30px rgba(74,59,42,.10);border:1px solid var(--border);}
+  .gate-card .emoji{font-size:44px;}
+  .gate-card h1{font-size:19px;margin:12px 0 4px;}
+  .gate-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+  .gate-card input{width:100%;padding:13px 16px;font-size:16px;border:2px solid var(--border);
+    border-radius:12px;text-align:center;letter-spacing:2px;outline:none;}
+  .gate-card input:focus{border-color:var(--lemon);}
+  .gate-card button{width:100%;margin-top:14px;padding:13px;font-size:15px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border:none;border-radius:12px;cursor:pointer;}
+  .gate-card button:active{background:var(--lemon-dark);}
+  #gate-error{color:var(--tomato);font-size:12px;margin-top:10px;display:none;}
+  header{background:linear-gradient(135deg,#FFE9A8 0%,#FFD97A 100%);
+    padding:36px 18px 30px;text-align:center;border-radius:0 0 28px 28px;margin-bottom:20px;}
+  header .badge{display:inline-block;background:var(--paper);border-radius:999px;
+    padding:4px 14px;font-size:11px;font-weight:bold;color:var(--ink-soft);letter-spacing:1px;margin-bottom:10px;}
+  header h1{font-size:24px;letter-spacing:1px;}
+  header p{font-size:12.5px;color:#7A6230;margin-top:6px;}
+  .club-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:30px;}
+  @media(min-width:520px){.club-nav{grid-template-columns:repeat(4,1fr);}}
+  .club-nav a{text-decoration:none;background:var(--paper);color:var(--ink);
+    font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
+    border:1px solid var(--border);text-align:center;display:block;line-height:1.4;}
+  .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
+  .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
+  section{margin-bottom:38px;}
+  h2{font-size:18px;display:flex;align-items:center;gap:8px;
+    padding-bottom:8px;border-bottom:3px solid var(--lemon);margin-bottom:16px;}
+  .card{background:var(--paper);border-radius:16px;padding:20px;border:1px solid var(--border);margin-bottom:14px;}
+  .card h3{font-size:15px;margin-bottom:8px;}
+  .card p{font-size:14px;}
+  .tag{display:inline-block;background:#FFF1CC;color:#9A7B1E;font-size:10.5px;
+    font-weight:bold;padding:2px 10px;border-radius:999px;margin-bottom:6px;}
+  .btn{display:inline-block;margin-top:10px;padding:10px 22px;font-size:13.5px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border-radius:999px;text-decoration:none;border:none;cursor:pointer;}
+  .btn.ghost{background:var(--paper);border:2px solid var(--lemon);}
+  .point{background:#FFF6DE;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:10px;}
+  .point b{color:#9A7B1E;}
+  pre{background:#FBF6EC;border:1px solid var(--border);border-radius:12px;
+    padding:16px;font-size:12.5px;line-height:1.7;white-space:pre-wrap;font-family:inherit;margin-top:10px;}
+  .copy-btn{margin-top:8px;padding:8px 18px;font-size:12px;font-weight:bold;
+    background:var(--ink);color:#fff;border:none;border-radius:999px;cursor:pointer;}
+  .copy-btn.done{background:var(--line-green);}
+  ul.simple{padding-left:20px;font-size:14px;}
+  ul.simple li{margin-bottom:6px;}
+  footer{text-align:center;font-size:11.5px;color:var(--ink-soft);
+    padding:30px 18px 10px;border-top:1px solid var(--border);margin-top:20px;}
+
+  /* 週カード */
+  .week{border-left:6px solid var(--lemon);}
+  .week .wk{display:inline-block;background:var(--lemon);color:var(--ink);
+    font-size:11px;font-weight:bold;padding:2px 12px;border-radius:999px;margin-bottom:8px;}
+  .goal{background:#FFF6DE;border-radius:10px;padding:8px 14px;font-size:13px;
+    font-weight:bold;color:#9A7B1E;margin-bottom:10px;}
+
+  /* チェックリスト（タップで保存される） */
+  .check{display:flex;align-items:flex-start;gap:12px;padding:13px 4px;
+    border-bottom:1px solid #F7EFDE;cursor:pointer;min-height:48px;}
+  .check:last-child{border-bottom:none;}
+  .check .box{width:26px;height:26px;border:2px solid var(--border);border-radius:8px;
+    flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;
+    background:var(--paper);transition:.15s;}
+  .check.done .box{background:var(--line-green);border-color:var(--line-green);}
+  .check.done .box::after{content:'✓';color:#fff;font-size:15px;font-weight:bold;}
+  .check.done .txt{text-decoration:line-through;color:var(--ink-soft);}
+  .check .txt{font-size:14px;font-weight:bold;flex:1;}
+  .check .txt small{display:block;font-weight:normal;font-size:12px;color:var(--ink-soft);}
+  .progress{background:var(--paper);border:1px solid var(--border);border-radius:999px;
+    height:14px;overflow:hidden;margin:8px 0 4px;}
+  .progress .bar{height:100%;background:linear-gradient(90deg,var(--lemon),var(--lemon-dark));
+    width:0%;transition:.3s;border-radius:999px;}
+  .progress-label{font-size:12px;color:var(--ink-soft);text-align:right;}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <div class="emoji">🍽</div>
+    <h1>グルメPRデビュー部 部室</h1>
+    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
+    <button onclick="checkPw()">部室に入る</button>
+    <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<header>
+  <div class="badge">部員専用 MEMBERS ONLY</div>
+  <h1>🚀 はじめの30日</h1>
+  <p>入部した月に、初PRへの一歩まで行くよ</p>
+</header>
+
+<div class="wrap">
+
+<nav class="club-nav">
+  <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
+  <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
+  <a href="30days.html" class="here"><span class="icon">🚀</span>はじめの30日</a>
+  <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
+  <a href="archive.html"><span class="icon">🎬</span>アーカイブ室</a>
+  <a href="pr.html"><span class="icon">🍋</span>PRのトリセツ</a>
+  <a href="money.html"><span class="icon">💰</span>お金の話</a>
+  <a href="index.html#pr-report"><span class="icon">🎉</span>初PR報告</a>
+</nav>
+
+<section>
+  <div class="card">
+    <h3>この30日の目的地</h3>
+    <p>1ヶ月後のあなたは、<b>グルメアカウントが動き出していて、初PRへの応募・DMを1回やってみた人</b>になっています。完璧じゃなくていい。「やってみた」まで行くのがゴールです。</p>
+    <div class="point"><b>進み方：</b>週ごとにやることを分けてあります。できたらチェックを付けてね（チェックはあなたのスマホに保存されます）。遅れても全然OK、自分のペースで。</div>
+  </div>
+</section>
+
+<!-- ===== 1週目 ===== -->
+<section>
+  <h2>📅 1週目：アカウントを「PRされる形」に</h2>
+  <div class="card week">
+    <span class="wk">WEEK 1</span>
+    <div class="goal">🎯 今週のゴール：グルメ専用アカウントが完成している</div>
+    <div class="check" data-k="w1-1"><span class="box"></span><span class="txt">グルメ専用のアカウントを用意する<small>新規でも、既存アカの衣替えでもOK。ただし「グルメ専用」に。理由は攻略MAPの第0講を読んでね</small></span></div>
+    <div class="check" data-k="w1-2"><span class="box"></span><span class="txt">名前を決める<small>「エリア＋グルメ＋名前」が見つけてもらいやすい（例：◯◯グルメ｜なまえ）</small></span></div>
+    <div class="check" data-k="w1-3"><span class="box"></span><span class="txt">プロフィール文を書く<small>「フォローすると何がいいか」を言い切る。型は攻略MAPにあります</small></span></div>
+    <div class="check" data-k="w1-4"><span class="box"></span><span class="txt">プロアカウントに切り替える<small>設定→アカウントの種類とツール→プロアカウント。無料で、閲覧データが見られるようになりPRにも必須</small></span></div>
+    <div class="check" data-k="w1-5"><span class="box"></span><span class="txt">オプチャで自己紹介する<small>テンプレは入部案内にあります</small></span></div>
+  </div>
+</section>
+
+<!-- ===== 2週目 ===== -->
+<section>
+  <h2>📅 2週目：投稿を始める</h2>
+  <div class="card week">
+    <span class="wk">WEEK 2</span>
+    <div class="goal">🎯 今週のゴール：3投稿できている</div>
+    <div class="check" data-k="w2-1"><span class="box"></span><span class="txt">お店で「4点セット」を撮ってくる<small>外観・店内・料理・メニュー表。窓際の自然光で、まっすぐ撮るだけでOK</small></span></div>
+    <div class="check" data-k="w2-2"><span class="box"></span><span class="txt">タイトルを「ギャップ型」で決める<small>「◯◯なのに△△」の型。攻略MAPに実例があります</small></span></div>
+    <div class="check" data-k="w2-3"><span class="box"></span><span class="txt">1枚目に文字を入れて投稿する<small>「どこで・何が・いくら」が一目で伝わるように（Canvaで簡単にできます）</small></span></div>
+    <div class="check" data-k="w2-4"><span class="box"></span><span class="txt">キャプションは「お役立ちメモ」付きの型で書く<small>駐車場・子連れ・個室の情報が保存を生みます。テンプレは攻略MAPに</small></span></div>
+    <div class="check" data-k="w2-5"><span class="box"></span><span class="txt">合計3投稿する<small>凝るより「出す」が先。60点で出そう</small></span></div>
+  </div>
+</section>
+
+<!-- ===== 3週目 ===== -->
+<section>
+  <h2>📅 3週目：交流を始める</h2>
+  <div class="card week">
+    <span class="wk">WEEK 3</span>
+    <div class="goal">🎯 今週のゴール：「一方通行」から「交流するアカウント」へ</div>
+    <div class="check" data-k="w3-1"><span class="box"></span><span class="txt">部員の投稿にコメントを5件する<small>まずは身内から。コメントは相手の投稿を伸ばす応援にもなります</small></span></div>
+    <div class="check" data-k="w3-2"><span class="box"></span><span class="txt">好きなグルメアカウントを見つけてコメントする<small>「ここ行きたいです！」の一言でOK</small></span></div>
+    <div class="check" data-k="w3-3"><span class="box"></span><span class="txt">ストーリーズを毎日1枚あげてみる<small>投稿ほど気負わなくてOK。今日のごはん、お店までの道、なんでも</small></span></div>
+    <div class="check" data-k="w3-4"><span class="box"></span><span class="txt">「誰かに送りたくなる」投稿を1本出す<small>「◯◯な人と行きたい店」など、送る相手が浮かぶタイトルで。いまのインスタはシェアが一番評価されます</small></span></div>
+    <div class="check" data-k="w3-5"><span class="box"></span><span class="txt">合計5〜6投稿まで増やす</span></div>
+  </div>
+</section>
+
+<!-- ===== 4週目 ===== -->
+<section>
+  <h2>📅 4週目：初PRに挑戦する</h2>
+  <div class="card week">
+    <span class="wk">WEEK 4</span>
+    <div class="goal">🎯 今週のゴール：PRへの「応募・DM」を1回やってみる</div>
+    <div class="check" data-k="w4-1"><span class="box"></span><span class="txt">「PRのトリセツ」を読む<small>PRが来る3つのルートと、フォロワー数が少なくてもできることが分かります</small></span></div>
+    <div class="check" data-k="w4-2"><span class="box"></span><span class="txt">フォロワー少なめOKの案件サービスに登録してみる<small>どれがいいかはトリセツの比較を見てね</small></span></div>
+    <div class="check" data-k="w4-3"><span class="box"></span><span class="txt">お店のプレゼント企画・モニター募集に1つ応募する<small>「当たるわけない」で出さないのが一番もったいない。誰かは当たります</small></span></div>
+    <div class="check" data-k="w4-4"><span class="box"></span><span class="txt">気になるお店に紹介DMを1通送ってみる<small>返事がなくても普通のこと、送れた時点で大成功</small></span></div>
+    <div class="check" data-k="w4-5"><span class="box"></span><span class="txt">ハイライトに「PRについて」を作る<small>お店側から見つけてもらう入口になります</small></span></div>
+  </div>
+</section>
+
+<!-- ===== 進捗 ===== -->
+<section>
+  <h2>🏁 30日の進みぐあい</h2>
+  <div class="card">
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="progress-label" id="bar-label">0 / 20</div>
+    <p style="margin-top:10px;">全部にチェックが付いたら、オプチャで「30日完走しました！」と報告してね🎉 完走した月から、あなたはもう「発信している人」です。</p>
+    <div class="point"><b>30日が終わったら：</b>「攻略MAP＋教材」のフェーズ2〜3に進んで、投稿の腕とPR獲得力を上げていこう。毎月の「今月の部活」も忘れずにチェック！</div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  🍽 グルメPRデビュー部｜すみれもん<br>
+  URL・合言葉・部室の中身（教材・スクショ）は、部員だけのひみつだよ
+</footer>
+
+</div>
+
+<script>
+  const MONTH_HASHES = {
+    "2026-07":"1gg0ouu","2026-08":"16eci0","2026-09":"1yvqjop","2026-10":"1mq4phq",
+    "2026-11":"pj0jcg","2026-12":"pfgine","2027-01":"iozeqs","2027-02":"1r6tt0v",
+    "2027-03":"18mzzbt","2027-04":"10fcuer","2027-05":"oewxte","2027-06":"jxefly","2027-07":"1t4eu7h"
+  };
+  function hashPw(s){let x=5381;for(const ch of s){x=(((x<<5)+x)^ch.codePointAt(0))>>>0}return x.toString(36)}
+  function currentHash(){
+    const d=new Date();const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+    if(MONTH_HASHES[key])return MONTH_HASHES[key];
+    const keys=Object.keys(MONTH_HASHES).sort();return MONTH_HASHES[keys[keys.length-1]];
+  }
+  function checkPw(){
+    const v=document.getElementById("pw").value.trim().toLowerCase();
+    if(hashPw(v)===currentHash()){sessionStorage.setItem("gclub","ok");enter();}
+    else{document.getElementById("gate-error").style.display="block";}
+  }
+  function enter(){
+    document.getElementById("gate").style.display="none";
+    document.getElementById("content").style.display="block";
+  }
+  if(sessionStorage.getItem("gclub")==="ok")enter();
+  document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")checkPw();});
+
+  // ===== チェックリスト（この端末に保存） =====
+  const KEY="gclub30";
+  const saved=JSON.parse(localStorage.getItem(KEY)||"{}");
+  const checks=document.querySelectorAll(".check");
+  function refresh(){
+    let done=0;
+    checks.forEach(c=>{if(c.classList.contains("done"))done++;});
+    const pct=Math.round(done/checks.length*100);
+    document.getElementById("bar").style.width=pct+"%";
+    document.getElementById("bar-label").textContent=done+" / "+checks.length+(pct===100?" 🎉 完走おめでとう！":"");
+  }
+  checks.forEach(c=>{
+    const k=c.dataset.k;
+    if(saved[k])c.classList.add("done");
+    c.addEventListener("click",()=>{
+      c.classList.toggle("done");
+      saved[k]=c.classList.contains("done");
+      localStorage.setItem(KEY,JSON.stringify(saved));
+      refresh();
+    });
+  });
+  refresh();
+</script>
+
+</body>
+</html>

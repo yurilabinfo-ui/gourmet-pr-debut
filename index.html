@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>🍽 グルメPRデビュー部 部室｜今月の部活</title>
+<style>
+  :root{
+    --cream:#FFF8EE;
+    --paper:#FFFFFF;
+    --lemon:#F5C94E;
+    --lemon-dark:#E0A82E;
+    --tomato:#E8604C;
+    --ink:#4A3B2A;
+    --ink-soft:#8A7A64;
+    --line-green:#06C755;
+    --border:#F0E3CC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.8;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px 60px;}
+
+  /* ===== 合言葉ゲート ===== */
+  #gate{
+    position:fixed;inset:0;background:var(--cream);z-index:100;
+    display:flex;align-items:center;justify-content:center;padding:24px;
+  }
+  .gate-card{
+    background:var(--paper);border-radius:20px;padding:40px 28px;
+    max-width:380px;width:100%;text-align:center;
+    box-shadow:0 8px 30px rgba(74,59,42,.10);
+    border:1px solid var(--border);
+  }
+  .gate-card .emoji{font-size:44px;}
+  .gate-card h1{font-size:19px;margin:12px 0 4px;}
+  .gate-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+  .gate-card input{
+    width:100%;padding:13px 16px;font-size:16px;border:2px solid var(--border);
+    border-radius:12px;text-align:center;letter-spacing:2px;outline:none;
+  }
+  .gate-card input:focus{border-color:var(--lemon);}
+  .gate-card button{
+    width:100%;margin-top:14px;padding:13px;font-size:15px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border:none;border-radius:12px;cursor:pointer;
+  }
+  .gate-card button:active{background:var(--lemon-dark);}
+  #gate-error{color:var(--tomato);font-size:12px;margin-top:10px;display:none;}
+
+  /* ===== ヘッダー ===== */
+  header{
+    background:linear-gradient(135deg,#FFE9A8 0%,#FFD97A 100%);
+    padding:36px 18px 30px;text-align:center;
+    border-radius:0 0 28px 28px;margin-bottom:20px;
+  }
+  header .badge{
+    display:inline-block;background:var(--paper);border-radius:999px;
+    padding:4px 14px;font-size:11px;font-weight:bold;color:var(--ink-soft);
+    letter-spacing:1px;margin-bottom:10px;
+  }
+  header h1{font-size:24px;letter-spacing:1px;}
+  header p{font-size:12.5px;color:#7A6230;margin-top:6px;}
+
+  /* ===== 部室ナビ（全ページ共通） ===== */
+  .club-nav{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:30px;
+  }
+  @media(min-width:520px){.club-nav{grid-template-columns:repeat(4,1fr);}}
+  .club-nav a,.club-nav span{
+    text-decoration:none;background:var(--paper);color:var(--ink);
+    font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
+    border:1px solid var(--border);text-align:center;display:block;line-height:1.4;
+  }
+  .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
+  .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
+  .club-nav span.soon{opacity:.45;}
+  .club-nav span.soon small{display:block;font-size:9.5px;color:var(--ink-soft);font-weight:normal;}
+
+  /* ===== セクション共通 ===== */
+  section{margin-bottom:38px;}
+  h2{
+    font-size:18px;display:flex;align-items:center;gap:8px;
+    padding-bottom:8px;border-bottom:3px solid var(--lemon);margin-bottom:16px;
+  }
+  .card{
+    background:var(--paper);border-radius:16px;padding:20px;
+    border:1px solid var(--border);margin-bottom:14px;
+  }
+  .card h3{font-size:15px;margin-bottom:8px;}
+  .card .date{font-size:11px;color:var(--ink-soft);font-weight:bold;}
+  .card p{font-size:14px;}
+  .tag{
+    display:inline-block;background:#FFF1CC;color:#9A7B1E;font-size:10.5px;
+    font-weight:bold;padding:2px 10px;border-radius:999px;margin-bottom:6px;margin-right:4px;
+  }
+  .tag.new{background:#FFE3DD;color:var(--tomato);}
+  .btn{
+    display:inline-block;margin-top:10px;padding:10px 22px;font-size:13.5px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border-radius:999px;text-decoration:none;border:none;cursor:pointer;
+  }
+  .btn.ghost{background:var(--paper);border:2px solid var(--lemon);}
+  .placeholder{
+    border:2px dashed var(--border);background:transparent;color:var(--ink-soft);
+    text-align:center;font-size:13px;padding:26px 16px;border-radius:16px;margin-bottom:14px;
+  }
+  .point{
+    background:#FFF6DE;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:10px;
+  }
+  .point b{color:#9A7B1E;}
+  pre{
+    background:#FBF6EC;border:1px solid var(--border);border-radius:12px;
+    padding:16px;font-size:12.5px;line-height:1.7;white-space:pre-wrap;
+    font-family:inherit;margin-top:10px;
+  }
+  .copy-btn{
+    margin-top:8px;padding:8px 18px;font-size:12px;font-weight:bold;
+    background:var(--ink);color:#fff;border:none;border-radius:999px;cursor:pointer;
+  }
+  .copy-btn.done{background:var(--line-green);}
+  ul.simple{padding-left:20px;font-size:14px;}
+  ul.simple li{margin-bottom:6px;}
+
+  /* 今月のテーマ */
+  .theme-card{
+    background:linear-gradient(135deg,#FFF3D6 0%,#FFEAB8 100%);
+    border:1px solid #F2DA9A;border-radius:16px;padding:22px 20px;margin-bottom:14px;
+  }
+  .theme-card .month{font-size:12px;font-weight:bold;color:#9A7B1E;letter-spacing:1px;}
+  .theme-card h3{font-size:18px;margin:6px 0 8px;}
+  .theme-card p{font-size:13.5px;}
+  .todo{display:flex;gap:10px;align-items:flex-start;background:var(--paper);
+    border-radius:12px;padding:12px 14px;margin-top:10px;font-size:13.5px;}
+  .todo .num{width:24px;height:24px;background:var(--lemon);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;flex-shrink:0;margin-top:2px;}
+
+  footer{
+    text-align:center;font-size:11.5px;color:var(--ink-soft);
+    padding:30px 18px 10px;border-top:1px solid var(--border);margin-top:20px;
+  }
+  .line-cta{
+    background:var(--paper);border:2px solid var(--line-green);border-radius:16px;
+    padding:20px;text-align:center;
+  }
+  .line-cta .btn{background:var(--line-green);color:#fff;}
+
+  /* 部員のアカウント帳 */
+  .mem-grid{display:grid;grid-template-columns:1fr;gap:10px;}
+  @media(min-width:520px){.mem-grid{grid-template-columns:1fr 1fr;}}
+  .mem{display:flex;align-items:center;gap:12px;background:var(--paper);
+    border:1px solid var(--border);border-radius:14px;padding:14px 16px;
+    text-decoration:none;color:var(--ink);min-height:56px;}
+  .mem .mi{font-size:22px;flex-shrink:0;}
+  .mem .mt{flex:1;min-width:0;}
+  .mem .mname{font-size:13.5px;font-weight:bold;overflow-wrap:anywhere;}
+  .mem .mtag{font-size:11px;color:var(--ink-soft);}
+  .mem .arrow{color:var(--lemon-dark);font-weight:bold;flex-shrink:0;}
+  .mem.leader{border:2px solid var(--lemon);}
+</style>
+</head>
+<body>
+
+<!-- ===== 合言葉ゲート ===== -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="emoji">🍽</div>
+    <h1>グルメPRデビュー部 部室</h1>
+    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
+    <button onclick="checkPw()">部室に入る</button>
+    <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<header>
+  <div class="badge">部員専用 MEMBERS ONLY</div>
+  <h1>🍽 グルメPRデビュー部 部室</h1>
+  <p>PRをもらって、ちょっと豊かになる。すみれもん学級・放課後の部活動</p>
+</header>
+
+<div class="wrap">
+
+<!-- ===== 部室ナビ ===== -->
+<nav class="club-nav">
+  <a href="index.html" class="here"><span class="icon">🏠</span>今月の部活</a>
+  <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
+  <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
+  <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
+  <a href="archive.html"><span class="icon">🎬</span>アーカイブ室</a>
+  <a href="pr.html"><span class="icon">🍋</span>PRのトリセツ</a>
+  <a href="money.html"><span class="icon">💰</span>お金の話</a>
+  <a href="#pr-report"><span class="icon">🎉</span>初PR報告</a>
+</nav>
+
+<!-- ===== 今月のテーマ ===== -->
+<section id="theme">
+  <h2>🗓 今月のテーマ</h2>
+  <div class="theme-card">
+    <div class="month">2026年8月号</div>
+    <h3>「保存される」から「送りたくなる」へ</h3>
+    <p>いまのインスタは、投稿を<b>誰かにDMで送りたくなるか</b>がいちばん評価されます（いいねの約5倍の重み）。「あの人と行きたい」と思わせる投稿が、フォロワーの外まで届きます。</p>
+    <div class="todo"><span class="num">1</span><span><b>「誰かを誘える投稿」を1本出す</b>：「◯◯な人と行きたい店」「デート向き」「女子会向き」など、送る相手が浮かぶタイトルにする</span></div>
+    <div class="todo"><span class="num">2</span><span><b>キャプションの締めをひとこと変える</b>：「保存してね」→「行きたい人に送ってあげてね👆」</span></div>
+    <div class="todo"><span class="num">3</span><span><b>ハッシュタグは5個までに厳選</b>：インスタの仕様変更で、多く付けるほど逆効果になりました。エリア＋ジャンルの5個だけでOK</span></div>
+  </div>
+</section>
+
+<!-- ===== お知らせ ===== -->
+<section id="news">
+  <h2>📣 お知らせ・次回予告</h2>
+  <div class="card">
+    <span class="tag new">NEW</span>
+    <div class="date">2026.08</div>
+    <h3>部室が大きくなります🏫</h3>
+    <p>「はじめの30日」「攻略MAP」「PR案件のトリセツ」「お金の話」の部屋を増築中。順番にオープンしていくので、楽しみにしててね。</p>
+  </div>
+  <div class="placeholder">✏️ 次回イベントの予告をここに書く<br>（例：8月の作業会・添削会の日程）</div>
+</section>
+
+<!-- ===== 今月の新着 ===== -->
+<section id="new-items">
+  <h2>✨ 今月の新着</h2>
+  <div class="card">
+    <span class="tag">録画</span>
+    <div class="date">2026.07.11 開催</div>
+    <h3>質問＆作業会</h3>
+    <p>みんなの質問に答えながら、その場で手を動かした回。つまずいたときに見返してね。</p>
+    <a class="btn" href="https://youtu.be/wEcTImYOSU8" target="_blank" rel="noopener">▶ 録画を見る</a>
+  </div>
+  <div class="placeholder">✏️ 今月アップした動画・教材のカードをここに追加</div>
+</section>
+
+<!-- ===== 初PR報告コーナー ===== -->
+<section id="pr-report">
+  <h2>🎉 初PR報告コーナー</h2>
+  <div class="card">
+    <h3>初めてのPR・ご招待が決まったら、オプチャで教えてね！</h3>
+    <p>この部活は、フォロワーの数より<b>「初PRをもらえた」</b>をみんなで祝う部活です。どんなに小さな案件でも立派なデビュー。ここに殿堂入りしていきます🏆</p>
+    <pre id="tpl-report">🎉 初PR報告です！
+【お店・案件】◯◯
+【きっかけ】直接DM／案件サイト（◯◯）／お店からDM
+【そのときのフォロワー数】◯◯人
+【ひとこと】</pre>
+    <button class="copy-btn" onclick="copyText('tpl-report',this)">📋 報告テンプレをコピー</button>
+  </div>
+  <div class="placeholder">🏆 部員の初PR報告がここに並んでいきます</div>
+</section>
+
+<!-- ===== 部員のアカウント ===== -->
+<section id="members">
+  <h2>📖 部員のアカウント帳</h2>
+  <div class="card">
+    <p style="font-size:13.5px;">お互いのアカウントを見て、コメントで応援し合おう。仲間の投稿へのコメントは、相手のためにも自分の勉強にもなります。</p>
+  </div>
+  <div class="mem-grid">
+    <a class="mem leader" href="https://www.instagram.com/sumiremon_gourmet/" target="_blank" rel="noopener">
+      <span class="mi">🍋</span>
+      <span class="mt"><span class="mname">すみれもん｜大阪・奈良グルメ</span><br><span class="mtag">@sumiremon_gourmet（部長）</span></span>
+      <span class="arrow">→</span>
+    </a>
+    <a class="mem" href="https://www.instagram.com/iyashi_cafe_lanchi/" target="_blank" rel="noopener">
+      <span class="mi">☕️</span>
+      <span class="mt"><span class="mname">岐阜の癒し、ご褒美カフェ💖</span><br><span class="mtag">@iyashi_cafe_lanchi</span></span>
+      <span class="arrow">→</span>
+    </a>
+    <a class="mem" href="https://www.instagram.com/u_table_grourmet/" target="_blank" rel="noopener">
+      <span class="mi">🍽</span>
+      <span class="mt"><span class="mname">ゆう｜ひとりで行ける東京グルメ</span><br><span class="mtag">@u_table_grourmet</span></span>
+      <span class="arrow">→</span>
+    </a>
+    <a class="mem" href="https://www.instagram.com/mygourmet0701/" target="_blank" rel="noopener">
+      <span class="mi">🍴</span>
+      <span class="mt"><span class="mname">まちのグルメダイアリー／神戸</span><br><span class="mtag">@mygourmet0701</span></span>
+      <span class="arrow">→</span>
+    </a>
+    <a class="mem" href="https://www.instagram.com/ayamama_otoriyose/" target="_blank" rel="noopener">
+      <span class="mi">📦</span>
+      <span class="mt"><span class="mname">ayamama｜兵庫発ご褒美お取り寄せ</span><br><span class="mtag">@ayamama_otoriyose</span></span>
+      <span class="arrow">→</span>
+    </a>
+    <a class="mem" href="https://www.instagram.com/roko_s168/" target="_blank" rel="noopener">
+      <span class="mi">🥢</span>
+      <span class="mt"><span class="mname">Rokoグルメ 大阪💓</span><br><span class="mtag">@roko_s168</span></span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+  <p style="font-size:12px;color:var(--ink-soft);margin-top:10px;">✏️ 載せたい人・外したい人・表記を直したい人はオプチャでどうぞ！</p>
+</section>
+
+<!-- ===== LINE導線 ===== -->
+<section>
+  <div class="line-cta">
+    <h3 style="font-size:15px;margin-bottom:6px;">質問・相談はオプチャでどうぞ🍋</h3>
+    <p style="font-size:13px;color:var(--ink-soft);">質問はみんなの勉強にもなるので、遠慮なく書き込んでね</p>
+    <a class="btn" href="#">オプチャを開く（URLをここに）</a>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  🍽 グルメPRデビュー部｜すみれもん<br>
+  URL・合言葉・部室の中身（教材・スクショ）は、部員だけのひみつだよ
+</footer>
+
+</div>
+
+<script>
+  // 合言葉は月替わり・暗号化した形（ハッシュ）でだけ保存する。
+  // 平文リストはゆりさんの手元（部室合言葉リスト）のみ。変更・追加は Claude に依頼
+  const MONTH_HASHES = {
+    "2026-07":"1gg0ouu",
+    "2026-08":"16eci0",
+    "2026-09":"1yvqjop",
+    "2026-10":"1mq4phq",
+    "2026-11":"pj0jcg",
+    "2026-12":"pfgine",
+    "2027-01":"iozeqs",
+    "2027-02":"1r6tt0v",
+    "2027-03":"18mzzbt",
+    "2027-04":"10fcuer",
+    "2027-05":"oewxte",
+    "2027-06":"jxefly",
+    "2027-07":"1t4eu7h"
+  };
+  function hashPw(s){let x=5381;for(const ch of s){x=(((x<<5)+x)^ch.codePointAt(0))>>>0}return x.toString(36)}
+  function currentHash(){
+    const d = new Date();
+    const key = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0");
+    if(MONTH_HASHES[key]) return MONTH_HASHES[key];
+    const keys = Object.keys(MONTH_HASHES).sort();
+    return MONTH_HASHES[keys[keys.length-1]];
+  }
+  function checkPw(){
+    const v = document.getElementById("pw").value.trim().toLowerCase();
+    if(hashPw(v) === currentHash()){
+      sessionStorage.setItem("gclub","ok");
+      enter();
+    }else{
+      document.getElementById("gate-error").style.display = "block";
+    }
+  }
+  function enter(){
+    document.getElementById("gate").style.display = "none";
+    document.getElementById("content").style.display = "block";
+  }
+  if(sessionStorage.getItem("gclub") === "ok") enter();
+  document.getElementById("pw").addEventListener("keydown", e => { if(e.key === "Enter") checkPw(); });
+
+  function copyText(id, btn){
+    navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => {
+      btn.textContent = "✅ コピーしました";
+      btn.classList.add("done");
+      setTimeout(() => { btn.textContent = "📋 テンプレをコピー"; btn.classList.remove("done"); }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

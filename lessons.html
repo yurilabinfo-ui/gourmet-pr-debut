@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>🗺 攻略MAP＋教材｜グルメPRデビュー部 部室</title>
+<style>
+  :root{
+    --cream:#FFF8EE; --paper:#FFFFFF; --lemon:#F5C94E; --lemon-dark:#E0A82E;
+    --tomato:#E8604C; --ink:#4A3B2A; --ink-soft:#8A7A64; --line-green:#06C755; --border:#F0E3CC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.8;}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px 60px;}
+  #gate{position:fixed;inset:0;background:var(--cream);z-index:100;
+    display:flex;align-items:center;justify-content:center;padding:24px;}
+  .gate-card{background:var(--paper);border-radius:20px;padding:40px 28px;max-width:380px;width:100%;
+    text-align:center;box-shadow:0 8px 30px rgba(74,59,42,.10);border:1px solid var(--border);}
+  .gate-card .emoji{font-size:44px;}
+  .gate-card h1{font-size:19px;margin:12px 0 4px;}
+  .gate-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+  .gate-card input{width:100%;padding:13px 16px;font-size:16px;border:2px solid var(--border);
+    border-radius:12px;text-align:center;letter-spacing:2px;outline:none;}
+  .gate-card input:focus{border-color:var(--lemon);}
+  .gate-card button{width:100%;margin-top:14px;padding:13px;font-size:15px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border:none;border-radius:12px;cursor:pointer;}
+  .gate-card button:active{background:var(--lemon-dark);}
+  #gate-error{color:var(--tomato);font-size:12px;margin-top:10px;display:none;}
+  header{background:linear-gradient(135deg,#FFE9A8 0%,#FFD97A 100%);
+    padding:36px 18px 30px;text-align:center;border-radius:0 0 28px 28px;margin-bottom:20px;}
+  header .badge{display:inline-block;background:var(--paper);border-radius:999px;
+    padding:4px 14px;font-size:11px;font-weight:bold;color:var(--ink-soft);letter-spacing:1px;margin-bottom:10px;}
+  header h1{font-size:24px;letter-spacing:1px;}
+  header p{font-size:12.5px;color:#7A6230;margin-top:6px;}
+  .club-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:30px;}
+  @media(min-width:520px){.club-nav{grid-template-columns:repeat(4,1fr);}}
+  .club-nav a{text-decoration:none;background:var(--paper);color:var(--ink);
+    font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
+    border:1px solid var(--border);text-align:center;display:block;line-height:1.4;}
+  .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
+  .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
+  section{margin-bottom:38px;}
+  h2{font-size:18px;display:flex;align-items:center;gap:8px;
+    padding-bottom:8px;border-bottom:3px solid var(--lemon);margin-bottom:16px;}
+  .card{background:var(--paper);border-radius:16px;padding:20px;border:1px solid var(--border);margin-bottom:14px;}
+  .card h3{font-size:15px;margin-bottom:8px;}
+  .card p{font-size:14px;}
+  .tag{display:inline-block;background:#FFF1CC;color:#9A7B1E;font-size:10.5px;
+    font-weight:bold;padding:2px 10px;border-radius:999px;margin-bottom:6px;margin-right:4px;}
+  .tag.p1{background:#E5F4E0;color:#3E7A2E;}
+  .tag.p2{background:#FFF1CC;color:#9A7B1E;}
+  .tag.p3{background:#FFE3DD;color:var(--tomato);}
+  .btn{display:inline-block;margin-top:10px;padding:10px 22px;font-size:13.5px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border-radius:999px;text-decoration:none;border:none;cursor:pointer;}
+  .placeholder{border:2px dashed var(--border);background:transparent;color:var(--ink-soft);
+    text-align:center;font-size:13px;padding:26px 16px;border-radius:16px;margin-bottom:14px;}
+  .point{background:#FFF6DE;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:10px;}
+  .point b{color:#9A7B1E;}
+  pre{background:#FBF6EC;border:1px solid var(--border);border-radius:12px;
+    padding:16px;font-size:12.5px;line-height:1.7;white-space:pre-wrap;font-family:inherit;margin-top:10px;}
+  .copy-btn{margin-top:8px;padding:8px 18px;font-size:12px;font-weight:bold;
+    background:var(--ink);color:#fff;border:none;border-radius:999px;cursor:pointer;}
+  .copy-btn.done{background:var(--line-green);}
+  ul.simple{padding-left:20px;font-size:14px;}
+  ul.simple li{margin-bottom:6px;}
+  footer{text-align:center;font-size:11.5px;color:var(--ink-soft);
+    padding:30px 18px 10px;border-top:1px solid var(--border);margin-top:20px;}
+
+  /* フェーズMAP */
+  .phase-map{display:flex;flex-direction:column;gap:0;margin-bottom:14px;}
+  .phase{background:var(--paper);border:1px solid var(--border);border-radius:16px;padding:16px 18px;}
+  .phase .ph-name{font-size:15px;font-weight:bold;}
+  .phase .ph-desc{font-size:12.5px;color:var(--ink-soft);}
+  .phase-arrow{text-align:center;font-size:18px;color:var(--lemon-dark);line-height:1.2;padding:2px 0;}
+  .phase.p1{border-left:6px solid #7CB768;}
+  .phase.p2{border-left:6px solid var(--lemon);}
+  .phase.p3{border-left:6px solid var(--tomato);}
+
+  /* セルフチェック */
+  .selfcheck{background:#FBF6EC;border-radius:12px;padding:12px 16px;margin-top:10px;font-size:13.5px;}
+  .selfcheck b{display:block;margin-bottom:4px;font-size:12.5px;color:#9A7B1E;}
+  .selfcheck li{margin-left:18px;margin-bottom:3px;}
+
+  /* 用語辞典 */
+  .dict{background:var(--paper);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+  .dict dl{display:grid;grid-template-columns:1fr;}
+  .dict .row{padding:12px 16px;border-bottom:1px solid #F7EFDE;}
+  .dict .row:last-child{border-bottom:none;}
+  .dict dt{font-size:13.5px;font-weight:bold;}
+  .dict dd{font-size:13px;color:var(--ink-soft);margin-left:0;}
+
+  /* チェック式セルフチェック（タップで保存される） */
+  .check{display:flex;align-items:flex-start;gap:12px;padding:11px 2px;
+    border-bottom:1px solid #F0E6D2;cursor:pointer;min-height:46px;}
+  .check:last-child{border-bottom:none;}
+  .check .box{width:26px;height:26px;border:2px solid var(--border);border-radius:8px;
+    flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;
+    background:var(--paper);transition:.15s;}
+  .check.done .box{background:var(--line-green);border-color:var(--line-green);}
+  .check.done .box::after{content:'✓';color:#fff;font-size:15px;font-weight:bold;}
+  .check.done .txt{text-decoration:line-through;color:var(--ink-soft);}
+  .check .txt{font-size:13.5px;font-weight:bold;flex:1;}
+
+  /* フェーズ進捗バッジ */
+  .ph-head{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .ph-prog{background:#FBF6EC;border:1px solid var(--border);color:var(--ink-soft);
+    font-size:11.5px;font-weight:bold;padding:2px 10px;border-radius:999px;white-space:nowrap;}
+  .phase.cleared .ph-prog{background:var(--line-green);border-color:var(--line-green);color:#fff;}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <div class="emoji">🍽</div>
+    <h1>グルメPRデビュー部 部室</h1>
+    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
+    <button onclick="checkPw()">部室に入る</button>
+    <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<header>
+  <div class="badge">部員専用 MEMBERS ONLY</div>
+  <h1>🗺 攻略MAP＋教材</h1>
+  <p>迷ったらここ。辞書みたいに使ってね</p>
+</header>
+
+<div class="wrap">
+
+<nav class="club-nav">
+  <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
+  <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
+  <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
+  <a href="lessons.html" class="here"><span class="icon">🗺</span>攻略MAP＋教材</a>
+  <a href="archive.html"><span class="icon">🎬</span>アーカイブ室</a>
+  <a href="pr.html"><span class="icon">🍋</span>PRのトリセツ</a>
+  <a href="money.html"><span class="icon">💰</span>お金の話</a>
+  <a href="index.html#pr-report"><span class="icon">🎉</span>初PR報告</a>
+</nav>
+
+<!-- ===== 全体MAP ===== -->
+<section id="map">
+  <h2>🗺 デビューまでの全体MAP</h2>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:12px;">期間は決めていません。何ヶ月かけてもいいし、経験者は飛ばしてOK。今の自分がどこにいるかの地図です。</p>
+  <div class="phase-map">
+    <div class="phase p1" id="phase-card-p1">
+      <div class="ph-head"><div class="ph-name">🌱 フェーズ1：準備</div><span class="ph-prog" id="prog-p1">0/3</span></div>
+      <div class="ph-desc">アカウントを整えて、写真が撮れるようになる</div>
+    </div>
+    <div class="phase-arrow">▼</div>
+    <div class="phase p2" id="phase-card-p2">
+      <div class="ph-head"><div class="ph-name">📣 フェーズ2：発信</div><span class="ph-prog" id="prog-p2">0/3</span></div>
+      <div class="ph-desc">投稿・リール・交流で「見つけてもらえる」アカウントに育てる</div>
+    </div>
+    <div class="phase-arrow">▼</div>
+    <div class="phase p3" id="phase-card-p3">
+      <div class="ph-head"><div class="ph-name">🍽 フェーズ3：デビュー</div><span class="ph-prog" id="prog-p3">0/3</span></div>
+      <div class="ph-desc">PRのルールを身につけて、案件をもらう・こなす</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 第0講 ===== -->
+<section id="lesson0">
+  <h2>📖 第0講：インスタに正しく覚えてもらう話</h2>
+  <div class="card">
+    <p>いちばん最初に、これだけは知っておいてほしい話です。</p>
+    <p style="margin-top:8px;">インスタでは、運営のMeta社が<b>「このアカウントは何の人か」</b>を判定して、興味がありそうな人に投稿を届けています。あなたがグルメだけを発信していれば、Meta社は「グルメの人」と覚えて、食べるのが好きな人にどんどん見せてくれます。</p>
+    <p style="margin-top:8px;">逆に、ごはんの隣に子どもの運動会、ペット、推し活…と混ざっていると、Meta社は<b>誰に見せたらいいか分からなくなって、誰にも届かなくなります</b>。</p>
+    <div class="point"><b>グルメ部の約束：</b>発信用アカウントは「グルメ専用」に。プライベートの投稿・他ジャンルの「見る専」活動は、別のアカウントでやりましょう。見る動画・フォローする相手もMeta社へのヒントになっています。<br>※コスメやお取り寄せなど、グルメ以外のジャンルで発信する場合も同じ。「そのジャンル専用」にするのが鉄則です。</div>
+  </div>
+</section>
+
+<!-- ===== フェーズ1 ===== -->
+<section id="phase1">
+  <h2>🌱 フェーズ1教材：準備</h2>
+
+  <div class="card">
+    <span class="tag p1">アカウント設計</span>
+    <h3>プロフィール文は「フォローする実利」を言い切る</h3>
+    <p>伸びてるアカウントのプロフィール文は全部これ。「10秒で見つかる」「30秒で解決」のように、<b>フォローすると何がいいかを数字で言い切る</b>。</p>
+    <pre id="tpl-bio">◯◯（名前）｜エリア＋誰向けかをひとこと
+"△△"が10秒で見つかる🍋
+◆ 価格帯の幅（コスパ〜ご褒美まで）
+◆ 独自の切り口（子連れOK・個室・駐車場など）
+◆ お仕事・PRはDMへ</pre>
+    <button class="copy-btn" onclick="copyText('tpl-bio',this)">📋 プロフィール文の型をコピー</button>
+  </div>
+
+  <div class="card">
+    <span class="tag p1">写真</span>
+    <h3>撮影は「3つの約束」だけでいい</h3>
+    <p>高い機材もセンスもいりません。スマホで、この3つだけ守ればお店に喜ばれる写真になります。</p>
+    <ul class="simple" style="margin-top:8px;">
+      <li><b>① 自然光</b>：できるだけ窓際に座る。それだけで写真が別物になります</li>
+      <li><b>② まっすぐ</b>：カメラのグリッド線をONにして、水平・垂直を合わせる</li>
+      <li><b>③ 加工は2つだけ</b>：「明るさ」と「色味（美味しそうに見えるか）」だけ整える。フィルターで盛りすぎない</li>
+    </ul>
+    <div class="point"><b>お店紹介に必要な4カット：</b>外観・店内・料理・メニュー表。これを毎回セットで撮っておくと、投稿もリールも作れます。1枚目用に「文字を入れる余白」がある引きの写真も忘れずに。</div>
+  </div>
+
+  <div class="card">
+    <span class="tag p1">動画</span>
+    <h3>撮り方講座（動画）</h3>
+    <div class="placeholder">🎬 撮り方のコツ動画をここに埋め込み（YouTube限定公開）</div>
+  </div>
+
+  <div class="selfcheck">
+    <b>✅ フェーズ1クリアの目安（できたらタップ）</b>
+    <div class="check" data-k="p1-1"><span class="box"></span><span class="txt">グルメ専用アカウントで、プロフィール文・アイコンが決まっている</span></div>
+    <div class="check" data-k="p1-2"><span class="box"></span><span class="txt">お店で4カットを迷わず撮れる</span></div>
+    <div class="check" data-k="p1-3"><span class="box"></span><span class="txt">明るさ・色味の調整ができる</span></div>
+  </div>
+</section>
+
+<!-- ===== フェーズ2 ===== -->
+<section id="phase2">
+  <h2>📣 フェーズ2教材：発信</h2>
+
+  <div class="card">
+    <span class="tag p2">投稿の型</span>
+    <h3>タイトルは「ギャップ型」で決め打ち</h3>
+    <p>伸びる投稿の共通点は<b>意外性・ギャップのあるタイトル</b>。しかも、お店に行く<b>前</b>に決めるのがコツ。タイトルが決まれば、撮る素材も自動的に決まります。</p>
+    <pre>「◯◯なのに△△」の型
+・ランチなのに牛タンコース気分
+・焼肉の〆がバーガーって何なん
+・そば屋なのに、点心コース気分
+・まだ誰も知らない、今日オープンの店</pre>
+    <div class="point"><b>ポイント：</b>ギャップ型は「1カット目」が命。タイトルが一発で伝わる引きの画から始める。</div>
+  </div>
+
+  <div class="card">
+    <span class="tag p2">投稿の型</span>
+    <h3>保存されるキャプションの定型</h3>
+    <p>毎回同じ形で書くと「メディア感」が出て、保存＝ファンが増えます。コピペして使ってね。</p>
+    <pre id="tpl-caption">（1行目はギャップの一言から。例：ランチなのに、コース気分。）
+
+【店名】◯◯（@タグ）
+【場所】◯◯駅から徒歩◯分
+【食べたもの】◯◯ ¥◯,◯◯◯
+
+本音レビュー2〜3行
+（ギャップ→感想→誰におすすめか）
+
+━━━ お役立ちメモ 🍋 ━━━
+🚗 駐車場：あり／なし（近隣コインP）
+👶 子連れ：OK／ベビーカー可／座敷あり
+🚪 個室：あり／なし
+📝 予約：可／不可
+⏰ 営業：◯◯:◯◯〜◯◯:◯◯（◯曜休み）
+💰 予算：ひとり ¥◯,◯◯◯くらい
+━━━━━━━━━━━━━━
+
+🔖 保存しておくと、次のごはん選びに迷いません
+📮 一緒に行きたい人に送ってあげてね
+
+#◯◯グルメ #◯◯ランチ（エリア＋ジャンルで5個まで）</pre>
+    <button class="copy-btn" onclick="copyText('tpl-caption',this)">📋 テンプレをコピー</button>
+    <div class="point"><b>ポイント：</b>「メモブロック」が保存を生む装置。駐車場・子連れ・個室は、大手がやっていない差別化情報。</div>
+  </div>
+
+  <div class="card">
+    <span class="tag p2">ハッシュタグ</span>
+    <h3>ハッシュタグは「5個まで」の時代</h3>
+    <p>昔は30個付けるのが常識でしたが、いまは<b>逆効果</b>。インスタ公式が上限を5個（アカウントによっては3個）に絞る方針に変わりました。</p>
+    <ul class="simple" style="margin-top:8px;">
+      <li>エリアタグ（#◯◯グルメ #◯◯ランチ）＋ジャンルタグ（#◯◯カフェ など）で<b>合計5個まで</b></li>
+      <li>投稿と関係ないタグは付けない（Meta社が混乱します）</li>
+      <li>タグより、<b>キャプションに検索されそうな言葉</b>（駅名・メニュー名）を自然に入れる方が効きます</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="tag p2">文字入れ</span>
+    <h3>1枚目の文字入れ（Canva）</h3>
+    <p>1枚目には<b>「どこで・何が・いくら」</b>が一目で伝わる文字を。発見欄で見つけた人は、写真だけでは素通りします。文字がその足を止めます。</p>
+    <div class="placeholder">🎬 Canva文字入れ講座（動画）をここに埋め込み</div>
+  </div>
+
+  <div class="card">
+    <span class="tag p2">リール</span>
+    <h3>リールは「作り込みすぎない」が正解になった</h3>
+    <p>リールはフォロワーが少なくても、フォロワーの外まで届く唯一の入口。そして2026年のインスタは<b>「スマホで撮ったままの自然な動画」を優遇する</b>と公式が明言しています。プロっぽい編集は不要です。</p>
+    <ul class="simple" style="margin-top:8px;">
+      <li><b>いろんな場面を1〜2秒ずつつなぐ</b>のが基本（1つの場面を長く見せない）</li>
+      <li><b>最初の2秒</b>に一番おいしそうな瞬間（チーズが伸びる・湯気が上がる）を持ってくる</li>
+      <li>テロップは必須（音を消して見る人が半分以上）</li>
+      <li>完成度6割で出してOK。「出す→反応を見る→次に活かす」の回数が実力になります</li>
+    </ul>
+    <div class="placeholder">🎬 CapCut編集講座（動画）をここに埋め込み</div>
+  </div>
+
+  <div class="card">
+    <span class="tag p2">交流</span>
+    <h3>「送りたくなる投稿」と交流が伸ばす</h3>
+    <p>いまのインスタが一番評価するのは、<b>投稿がDMで誰かに送られること</b>（いいねの約5倍の重み）。つまり「あの人と行きたい」と思わせる投稿と、人とのつながりが最強の攻略法です。</p>
+    <ul class="simple" style="margin-top:8px;">
+      <li>タイトルに<b>「誰と行くか」</b>を入れる（女子会・デート・子連れ・ひとりごはん）</li>
+      <li>キャプションの締めは「行きたい人に送ってあげてね」</li>
+      <li>コメントには全部返信する（会話が増えるほど届きやすくなります）</li>
+      <li>ストーリーズは毎日1〜2枚。アンケートやクイズでフォロワーさんと遊ぶ</li>
+      <li>まとめ投稿を月1本（「◯◯エリアのランチ5選」）→プロフィールにピン留め</li>
+    </ul>
+  </div>
+
+  <div class="selfcheck">
+    <b>✅ フェーズ2クリアの目安（できたらタップ）</b>
+    <div class="check" data-k="p2-1"><span class="box"></span><span class="txt">ギャップ型タイトル＋定型キャプションで投稿が習慣になっている</span></div>
+    <div class="check" data-k="p2-2"><span class="box"></span><span class="txt">リールを出したことがある</span></div>
+    <div class="check" data-k="p2-3"><span class="box"></span><span class="txt">コメント・ストーリーズでの交流が日常になっている</span></div>
+  </div>
+</section>
+
+<!-- ===== フェーズ3 ===== -->
+<section id="phase3">
+  <h2>🍽 フェーズ3教材：デビュー</h2>
+
+  <div class="card">
+    <span class="tag p3">PRのルール</span>
+    <h3>PR投稿の絶対ルール（ステマ規制）</h3>
+    <p>無料でごちそうになったら、それは<b>「広告」</b>。法律（ステマ規制）で、見る人に分かるように書くことが義務です。知らずに破るとお店に迷惑がかかります。</p>
+    <ul class="simple" style="margin-top:8px;">
+      <li><b>キャプションの冒頭に</b>「PR」「◯◯様からご招待いただきました」と明記（文末やタグの山に隠すのはNG）</li>
+      <li>インスタの<b>「タイアップ投稿ラベル」</b>を必ず設定（詳しい手順はPRのトリセツへ）</li>
+      <li>「#コラボ」「#モニター」だけの曖昧な書き方はNG</li>
+      <li>ご招待でも、感想は正直に自分の言葉で書いてOK（むしろその方が信頼されます）</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="tag p3">AI活用</span>
+    <h3>AIをアシスタントにする</h3>
+    <p>キャプションの下書きやリールの構成は、AI（ChatGPTやClaude）に手伝ってもらうと時短になります。コツは2段構え：<b>①まず自分のいつもの投稿を覚えさせる → ②今回の材料（メモ）を渡す</b>。これで「AIっぽい文章」じゃなく「自分の文体」で下書きが出てきます。</p>
+    <pre id="tpl-ai">◆ステップ1：まず自分の文体を覚えてもらう👇
+
+あなたはグルメインスタの編集アシスタントです。
+下記は私のいつもの投稿です。文体・絵文字の使い方・
+言葉のリズムを覚えてください。
+
+（ここに自分の過去キャプションを2〜3本貼る）
+
+◆ステップ2：今回のメモを渡す👇
+
+覚えた私の文体のまま、インスタのキャプション下書きを
+作ってください。
+条件：冒頭にギャップのある一文／
+最後に「お役立ちメモ」ブロック
+（駐車場・子連れ・個室・予約・営業時間・予算）
+
+【店名】
+【エリア・最寄り駅】
+【食べたもの・値段】
+【感想メモ（箇条書きでOK）】
+【駐車場・子連れ・個室・予約・営業時間・予算】</pre>
+    <button class="copy-btn" onclick="copyText('tpl-ai',this)">📋 AI用プロンプトをコピー</button>
+    <div class="point"><b>注意：</b>AIの文章をそのまま使わず、必ず自分の言葉に直す。「行ってないと書けない一言」があなたの価値です。</div>
+  </div>
+
+  <div class="selfcheck">
+    <b>✅ フェーズ3クリアの目安（できたらタップ）</b>
+    <div class="check" data-k="p3-1"><span class="box"></span><span class="txt">PR表記とタイアップラベルのやり方が分かっている</span></div>
+    <div class="check" data-k="p3-2"><span class="box"></span><span class="txt">PRのトリセツを読んで、自分の次の一手（応募先・DM先）が決まっている</span></div>
+    <div class="check" data-k="p3-3"><span class="box"></span><span class="txt">初PRをもらった！🎉<small style="display:block;font-weight:normal;font-size:12px;color:var(--ink-soft);">チェックしたら、オプチャと初PR報告コーナーで教えてね</small></span></div>
+  </div>
+</section>
+
+<!-- ===== 用語辞典 ===== -->
+<section id="dict">
+  <h2>📚 グルメ部用語辞典</h2>
+  <div class="dict">
+    <div class="row"><dt>bio（バイオ）</dt><dd>プロフィール画面の自己紹介文のこと。「プロフィール文」と同じ意味</dd></div>
+    <div class="row"><dt>フィード投稿</dt><dd>ふつうの写真投稿。プロフィールに並ぶ「作品集」</dd></div>
+    <div class="row"><dt>リール</dt><dd>短い縦動画。フォロワー以外に届く一番の入口</dd></div>
+    <div class="row"><dt>ストーリーズ</dt><dd>24時間で消える投稿。フォロワーさんとの日常会話の場</dd></div>
+    <div class="row"><dt>発見欄</dt><dd>虫めがねマークのページ。ここに載ると一気に見られる</dd></div>
+    <div class="row"><dt>Views（閲覧数）</dt><dd>投稿が見られた回数。いまのインスタの共通ものさし（再生数・リーチはこれに統一されました）</dd></div>
+    <div class="row"><dt>インサイト</dt><dd>プロアカウントで見られる成績表。閲覧数・保存・シェアが分かる</dd></div>
+    <div class="row"><dt>エンゲージメント</dt><dd>いいね・コメント・保存・シェアなどの反応ぜんぶ</dd></div>
+    <div class="row"><dt>シェア（送信）</dt><dd>投稿をDMで人に送ること。いま一番評価される反応</dd></div>
+    <div class="row"><dt>プロアカウント</dt><dd>無料の切り替え設定。インサイトとタイアップラベルが使えるようになる</dd></div>
+    <div class="row"><dt>フォロ活</dt><dd>自分からフォロー・コメントして仲間とつながりに行く活動</dd></div>
+    <div class="row"><dt>ギフティング</dt><dd>お金の代わりに商品や食事をもらうPRの形。無料ごはんのご招待もこれ</dd></div>
+    <div class="row"><dt>タイアップ投稿</dt><dd>お店・企業から依頼を受けた宣伝投稿。ラベル表示が義務</dd></div>
+    <div class="row"><dt>ステマ規制</dt><dd>宣伝なのに宣伝と分からない投稿を禁止する法律（2023年10月〜）</dd></div>
+    <div class="row"><dt>案件サイト</dt><dd>お店とインフルエンサーをつなぐマッチングサービス。詳しくはPRのトリセツへ</dd></div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  🍽 グルメPRデビュー部｜すみれもん<br>
+  URL・合言葉・部室の中身（教材・スクショ）は、部員だけのひみつだよ
+</footer>
+
+</div>
+
+<script>
+  const MONTH_HASHES = {
+    "2026-07":"1gg0ouu","2026-08":"16eci0","2026-09":"1yvqjop","2026-10":"1mq4phq",
+    "2026-11":"pj0jcg","2026-12":"pfgine","2027-01":"iozeqs","2027-02":"1r6tt0v",
+    "2027-03":"18mzzbt","2027-04":"10fcuer","2027-05":"oewxte","2027-06":"jxefly","2027-07":"1t4eu7h"
+  };
+  function hashPw(s){let x=5381;for(const ch of s){x=(((x<<5)+x)^ch.codePointAt(0))>>>0}return x.toString(36)}
+  function currentHash(){
+    const d=new Date();const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+    if(MONTH_HASHES[key])return MONTH_HASHES[key];
+    const keys=Object.keys(MONTH_HASHES).sort();return MONTH_HASHES[keys[keys.length-1]];
+  }
+  function checkPw(){
+    const v=document.getElementById("pw").value.trim().toLowerCase();
+    if(hashPw(v)===currentHash()){sessionStorage.setItem("gclub","ok");enter();}
+    else{document.getElementById("gate-error").style.display="block";}
+  }
+  function enter(){
+    document.getElementById("gate").style.display="none";
+    document.getElementById("content").style.display="block";
+  }
+  if(sessionStorage.getItem("gclub")==="ok")enter();
+  document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")checkPw();});
+
+  function copyText(id, btn){
+    navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => {
+      btn.textContent = "✅ コピーしました";
+      btn.classList.add("done");
+      setTimeout(() => { btn.textContent = "📋 コピー"; btn.classList.remove("done"); }, 2000);
+    });
+  }
+
+  // ===== セルフチェック（この端末に保存・全体MAPに進捗表示） =====
+  const MAPKEY="gclubmap";
+  const mapSaved=JSON.parse(localStorage.getItem(MAPKEY)||"{}");
+  const mapChecks=document.querySelectorAll(".check");
+  function mapRefresh(){
+    ["p1","p2","p3"].forEach(ph=>{
+      const items=document.querySelectorAll('.check[data-k^="'+ph+'-"]');
+      let done=0;items.forEach(c=>{if(c.classList.contains("done"))done++;});
+      const badge=document.getElementById("prog-"+ph);
+      const card=document.getElementById("phase-card-"+ph);
+      if(badge){badge.textContent=(done===items.length)?"クリア！✓":done+"/"+items.length;}
+      if(card){card.classList.toggle("cleared",done===items.length);}
+    });
+  }
+  mapChecks.forEach(c=>{
+    const k=c.dataset.k;
+    if(mapSaved[k])c.classList.add("done");
+    c.addEventListener("click",()=>{
+      c.classList.toggle("done");
+      mapSaved[k]=c.classList.contains("done");
+      localStorage.setItem(MAPKEY,JSON.stringify(mapSaved));
+      mapRefresh();
+    });
+  });
+  mapRefresh();
+</script>
+
+</body>
+</html>

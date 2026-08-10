@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>🍋 PR案件のトリセツ｜グルメPRデビュー部 部室</title>
+<style>
+  :root{
+    --cream:#FFF8EE; --paper:#FFFFFF; --lemon:#F5C94E; --lemon-dark:#E0A82E;
+    --tomato:#E8604C; --ink:#4A3B2A; --ink-soft:#8A7A64; --line-green:#06C755; --border:#F0E3CC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.8;}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px 60px;}
+  #gate{position:fixed;inset:0;background:var(--cream);z-index:100;
+    display:flex;align-items:center;justify-content:center;padding:24px;}
+  .gate-card{background:var(--paper);border-radius:20px;padding:40px 28px;max-width:380px;width:100%;
+    text-align:center;box-shadow:0 8px 30px rgba(74,59,42,.10);border:1px solid var(--border);}
+  .gate-card .emoji{font-size:44px;}
+  .gate-card h1{font-size:19px;margin:12px 0 4px;}
+  .gate-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+  .gate-card input{width:100%;padding:13px 16px;font-size:16px;border:2px solid var(--border);
+    border-radius:12px;text-align:center;letter-spacing:2px;outline:none;}
+  .gate-card input:focus{border-color:var(--lemon);}
+  .gate-card button{width:100%;margin-top:14px;padding:13px;font-size:15px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border:none;border-radius:12px;cursor:pointer;}
+  .gate-card button:active{background:var(--lemon-dark);}
+  #gate-error{color:var(--tomato);font-size:12px;margin-top:10px;display:none;}
+  header{background:linear-gradient(135deg,#FFE9A8 0%,#FFD97A 100%);
+    padding:36px 18px 30px;text-align:center;border-radius:0 0 28px 28px;margin-bottom:20px;}
+  header .badge{display:inline-block;background:var(--paper);border-radius:999px;
+    padding:4px 14px;font-size:11px;font-weight:bold;color:var(--ink-soft);letter-spacing:1px;margin-bottom:10px;}
+  header h1{font-size:24px;letter-spacing:1px;}
+  header p{font-size:12.5px;color:#7A6230;margin-top:6px;}
+  .club-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:30px;}
+  @media(min-width:520px){.club-nav{grid-template-columns:repeat(4,1fr);}}
+  .club-nav a{text-decoration:none;background:var(--paper);color:var(--ink);
+    font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
+    border:1px solid var(--border);text-align:center;display:block;line-height:1.4;}
+  .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
+  .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
+  section{margin-bottom:38px;}
+  h2{font-size:18px;display:flex;align-items:center;gap:8px;
+    padding-bottom:8px;border-bottom:3px solid var(--lemon);margin-bottom:16px;}
+  .card{background:var(--paper);border-radius:16px;padding:20px;border:1px solid var(--border);margin-bottom:14px;}
+  .card h3{font-size:15px;margin-bottom:8px;}
+  .card p{font-size:14px;}
+  .tag{display:inline-block;background:#FFF1CC;color:#9A7B1E;font-size:10.5px;
+    font-weight:bold;padding:2px 10px;border-radius:999px;margin-bottom:6px;margin-right:4px;}
+  .btn{display:inline-block;margin-top:10px;padding:10px 22px;font-size:13.5px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border-radius:999px;text-decoration:none;border:none;cursor:pointer;}
+  .point{background:#FFF6DE;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:10px;}
+  .point b{color:#9A7B1E;}
+  .point.alert{background:#FFEDEA;}
+  .point.alert b{color:var(--tomato);}
+  pre{background:#FBF6EC;border:1px solid var(--border);border-radius:12px;
+    padding:16px;font-size:12.5px;line-height:1.7;white-space:pre-wrap;font-family:inherit;margin-top:10px;}
+  .copy-btn{margin-top:8px;padding:8px 18px;font-size:12px;font-weight:bold;
+    background:var(--ink);color:#fff;border:none;border-radius:999px;cursor:pointer;}
+  .copy-btn.done{background:var(--line-green);}
+  ul.simple{padding-left:20px;font-size:14px;}
+  ul.simple li{margin-bottom:6px;}
+  footer{text-align:center;font-size:11.5px;color:var(--ink-soft);
+    padding:30px 18px 10px;border-top:1px solid var(--border);margin-top:20px;}
+
+  /* ルート図 */
+  .route{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #F7EFDE;}
+  .route:last-child{border-bottom:none;}
+  .route .ico{font-size:24px;flex-shrink:0;width:34px;text-align:center;}
+  .route b{font-size:14px;}
+  .route p{font-size:13px;color:var(--ink-soft);}
+
+  /* サービスカード（スマホ最優先・縦積み） */
+  .svc{background:var(--paper);border:1px solid var(--border);border-radius:16px;
+    padding:18px 18px 16px;margin-bottom:12px;}
+  .svc .svc-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+  .svc h3{font-size:16px;}
+  .svc .flw{background:var(--lemon);color:var(--ink);font-size:11.5px;font-weight:bold;
+    padding:3px 12px;border-radius:999px;white-space:nowrap;}
+  .svc .flw.low{background:#CBE8C0;}
+  .svc .flw.new{background:#E8F0FE;}
+  .svc dl{margin-top:8px;font-size:13px;}
+  .svc dt{font-weight:bold;font-size:12px;color:#9A7B1E;margin-top:8px;}
+  .svc dd{margin-left:0;color:var(--ink);}
+  .step-line{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #F7EFDE;}
+  .step-line:last-child{border-bottom:none;}
+  .step-line .num{width:26px;height:26px;background:var(--lemon);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;flex-shrink:0;margin-top:2px;}
+  .step-line p{font-size:13.5px;}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <div class="emoji">🍽</div>
+    <h1>グルメPRデビュー部 部室</h1>
+    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
+    <button onclick="checkPw()">部室に入る</button>
+    <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<header>
+  <div class="badge">部員専用 MEMBERS ONLY</div>
+  <h1>🍋 PR案件のトリセツ</h1>
+  <p>「ご招待」はどこから来る？もらい方の全部</p>
+</header>
+
+<div class="wrap">
+
+<nav class="club-nav">
+  <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
+  <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
+  <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
+  <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
+  <a href="archive.html"><span class="icon">🎬</span>アーカイブ室</a>
+  <a href="pr.html" class="here"><span class="icon">🍋</span>PRのトリセツ</a>
+  <a href="money.html"><span class="icon">💰</span>お金の話</a>
+  <a href="index.html#pr-report"><span class="icon">🎉</span>初PR報告</a>
+</nav>
+
+<!-- ===== 3ルート ===== -->
+<section>
+  <h2>🛤 PRが来る3つのルート</h2>
+  <div class="card">
+    <div class="route">
+      <span class="ico">🎁</span>
+      <div><b>① お店のプレゼント企画・モニター募集</b>
+      <p>フォロワー数ゼロでも応募できる入口。「当たるわけない」と思わず出すこと。誰かは必ず当たっています。</p></div>
+    </div>
+    <div class="route">
+      <span class="ico">📮</span>
+      <div><b>② 案件サービス（マッチングサイト）</b>
+      <p>お店とインフルエンサーをつなぐサービスに登録して応募。サービスごとに必要フォロワー数の目安が違います（下の比較へ）。</p></div>
+    </div>
+    <div class="route">
+      <span class="ico">💌</span>
+      <div><b>③ 直接DM（自分から or お店から）</b>
+      <p>フォロワーが少ないうちの主戦場。丁寧な投稿を続けていると、お店側から届くことも。フォロワー500人前後で声がかかった実例もあります。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== フォロワー数別 ===== -->
+<section>
+  <h2>📈 いまの自分は何をすればいい？</h2>
+  <div class="card">
+    <h3>〜300人：土台づくり＋ルート①③</h3>
+    <ul class="simple">
+      <li>投稿数を増やして「作品集」を育てる時期（あなたのインスタはお店から見られる履歴書です）</li>
+      <li>プレゼント企画・モニター応募はどんどん出す</li>
+      <li>近所の気になるお店に紹介DMを送ってみる</li>
+      <li>ハイライト「PRについて」を作っておく</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>300〜1000人：案件サービスに登録開始</h3>
+    <ul class="simple">
+      <li>フォロワー数百人から登録できるサービスに登録（下の比較へ）</li>
+      <li>採用されなくても気にしない。「応募の数」が初PRへの距離です</li>
+      <li>リールに力を入れる時期。フォロワー外に届く実績（閲覧数）はお店へのアピールになります</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>1000人〜：本命サービス解禁</h3>
+    <ul class="simple">
+      <li>案件数の多い大手サービスの登録条件をクリア。選べる側になっていきます</li>
+      <li>お店からの直接オファーも増える時期。DMの通知は見逃さない</li>
+      <li>タイアップ投稿の実績を作って、ハイライトに並べていこう</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== サービス比較 ===== -->
+<section>
+  <h2>🔍 案件サービス比較（2026年8月しらべ）</h2>
+  <p style="font-size:13px;color:var(--ink-soft);margin-bottom:12px;">条件やサービス内容はよく変わります。登録前に公式サイトで最新条件を確認してね。部員の体験談はオプチャで共有し合いましょう。</p>
+
+  <div class="svc">
+    <div class="svc-head"><h3>トリドリ（toridori）</h3><span class="flw">1000人〜</span></div>
+    <dl>
+      <dt>どんなサービス？</dt><dd>業界最大級。案件数が多く毎日更新、グルメ以外にレジャー・旅行も</dd>
+      <dt>向いている人</dt><dd>1000人を超えたら最初に検討したい本命</dd>
+      <dt>気をつけること</dt><dd>投稿期限が短め（数日以内）の案件が多い。スケジュールに余裕を持って</dd>
+    </dl>
+  </div>
+
+  <div class="svc">
+    <div class="svc-head"><h3>モグカツ</h3><span class="flw low">フォロワー少なめOK</span></div>
+    <dl>
+      <dt>どんなサービス？</dt><dd>グルメ特化。食事代がポイント還元される形のモニター型</dd>
+      <dt>向いている人</dt><dd>まず「案件をこなす経験」を積みたい初心者さん</dd>
+      <dt>気をつけること</dt><dd>還元条件（投稿期限・指定タグ）を最初によく読むこと</dd>
+    </dl>
+  </div>
+
+  <div class="svc">
+    <div class="svc-head"><h3>Woomy（ウーミー）</h3><span class="flw low">数百人〜</span></div>
+    <dl>
+      <dt>どんなサービス？</dt><dd>手数料0円・報酬100%受け取りをうたう。単発案件が多くノルマなし</dd>
+      <dt>向いている人</dt><dd>報酬付き案件に早めに挑戦したい人</dd>
+      <dt>気をつけること</dt><dd>クライアントの支払いが滞ると報酬が未払いになるリスクが明記されています。大型案件ほど慎重に</dd>
+    </dl>
+  </div>
+
+  <div class="svc">
+    <div class="svc-head"><h3>Beee（ビー）</h3><span class="flw">500人〜目安</span></div>
+    <dl>
+      <dt>どんなサービス？</dt><dd>AIがアカウントと案件の相性を分析してマッチングするタイプ</dd>
+      <dt>向いている人</dt><dd>グルメ以外（ホテル・お出かけ）も視野に入れたい人</dd>
+      <dt>気をつけること</dt><dd>指示が細かい案件もあるので、条件を読んでから応募</dd>
+    </dl>
+  </div>
+
+  <div class="svc">
+    <div class="svc-head"><h3>ユニット（UNIT）</h3><span class="flw">1000人〜</span></div>
+    <dl>
+      <dt>どんなサービス？</dt><dd>グルメ特化型。お店とチャットで直接やりとりでき、報告もシンプル</dd>
+      <dt>向いている人</dt><dd>グルメ案件だけを探したい人（美容系などが混ざらない）</dd>
+      <dt>気をつけること</dt><dd>以前は数百人でも登録できましたが、現在は1000人以上が目安に引き上げられています</dd>
+    </dl>
+  </div>
+
+  <div class="svc">
+    <div class="svc-head"><h3>TAGZ TRIBE（タグズ）</h3><span class="flw">グルメ特化なら2000人〜</span></div>
+    <dl>
+      <dt>どんなサービス？</dt><dd>飲食店特化の会社が運営するマッチング。高級店など質のいいグルメ案件が中心</dd>
+      <dt>向いている人</dt><dd>グルメ専門アカウントとして育ってきて、ワンランク上のご招待を狙いたい人（通常は5000人〜、グルメ特化アカウントは2000人〜で登録可）</dd>
+      <dt>気をつけること</dt><dd>登録に審査あり。落ちても気にせず、アカウントを育ててから再挑戦</dd>
+    </dl>
+  </div>
+
+  <div class="svc">
+    <div class="svc-head"><h3>KYAM.PUS（キャンパス）SNS PR版</h3><span class="flw new">2026年5月開始の新顔</span></div>
+    <dl>
+      <dt>どんなサービス？</dt><dd>企業側もインフルエンサー側も完全無料をうたう新しいマッチング</dd>
+      <dt>向いている人</dt><dd>新しいサービスを早めに試したい人（登録者が少ない今はチャンスでもある）</dd>
+      <dt>気をつけること</dt><dd>始まったばかりで実績が少ない。部で検証中！使ってみた人はオプチャで感想を教えてね</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ===== タイアップラベル ===== -->
+<section>
+  <h2>🏷 タイアップ投稿ラベルの設定手順</h2>
+  <div class="card">
+    <p>PR投稿には、インスタ公式の「タイアップ投稿ラベル」を付けるのが基本です。投稿の上に「◯◯とのタイアップ投稿」と表示され、これが一番確実なPR表記になります。</p>
+    <div style="margin-top:10px;">
+      <div class="step-line"><span class="num">1</span><p><b>プロアカウントに切り替え</b>（設定→アカウントの種類とツール→プロアカウントに切り替える）※無料</p></div>
+      <div class="step-line"><span class="num">2</span><p>投稿の作成画面で<b>「詳細設定」</b>を開く</p></div>
+      <div class="step-line"><span class="num">3</span><p><b>「タイアップ投稿ラベルを追加」をON</b>にする</p></div>
+      <div class="step-line"><span class="num">4</span><p><b>ブランドパートナーを追加</b>で、お店のアカウントを検索して指定（お店側の承認が必要な場合があります。案件が決まったら早めにお店へ確認）</p></div>
+      <div class="step-line"><span class="num">5</span><p>あわせて<b>キャプションの冒頭</b>に「PR」または「◯◯様からご招待いただきました」と書く</p></div>
+    </div>
+    <div class="point"><b>これだけは守って（ステマ規制）：</b>無料のご招待も法律上は「広告」です。表記はキャプションの<b>最初の方</b>に。文末に小さく書く・タグの山にまぎれさせる・「#コラボ」だけ、はNG。守らないとお店側に罰則が及ぶ可能性があり、一番迷惑がかかります。</div>
+  </div>
+</section>
+
+<!-- ===== 悪質業者 ===== -->
+<section>
+  <h2>🚨 気をつけて！こんな勧誘は要注意</h2>
+  <div class="card">
+    <p>インフルエンサー活動を始めると、DMで色々なオファーが届くようになります。中には<b>お金をだまし取る目的の勧誘</b>も混ざっています。</p>
+    <ul class="simple" style="margin-top:8px;">
+      <li>「<b>条件を満たせば全額キャッシュバック</b>」で月額サービスに加入させる勧誘 → キャッシュバックの条件が複雑で、実際には返金されないトラブルが多発しています</li>
+      <li><b>インフルエンサー側がお金を払う</b>タイプの話は原則スルー（本来、PRはお店側があなたに対価を払うものです）</li>
+      <li>「あなたのアカウントが選ばれました」系の突然のうまい話</li>
+      <li>契約を急がせる・断ると態度が変わる</li>
+    </ul>
+    <div class="point alert"><b>部のルール：</b>お金を払う契約・月額サービスの勧誘が来たら、<b>契約前にオプチャで相談</b>！ひとりで判断しないこと。それだけで被害はほぼ防げます。</div>
+  </div>
+</section>
+
+<!-- ===== お店でのマナー ===== -->
+<section>
+  <h2>🤝 ご招待されたときのマナー</h2>
+  <div class="card">
+    <ul class="simple">
+      <li><b>撮影は他のお客さまが映らない</b>ように。混雑時の長時間撮影は避ける</li>
+      <li>投稿期限・指定タグ・載せてほしいポイントを<b>事前に確認</b>する</li>
+      <li>投稿したら<b>お店に報告</b>＋お礼を。「また呼びたい人」になるのが一番の営業です</li>
+      <li>感想は正直に。ただし気になった点があれば投稿に書く前にお店へ直接伝えるのが大人のマナー</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  🍽 グルメPRデビュー部｜すみれもん<br>
+  URL・合言葉・部室の中身（教材・スクショ）は、部員だけのひみつだよ
+</footer>
+
+</div>
+
+<script>
+  const MONTH_HASHES = {
+    "2026-07":"1gg0ouu","2026-08":"16eci0","2026-09":"1yvqjop","2026-10":"1mq4phq",
+    "2026-11":"pj0jcg","2026-12":"pfgine","2027-01":"iozeqs","2027-02":"1r6tt0v",
+    "2027-03":"18mzzbt","2027-04":"10fcuer","2027-05":"oewxte","2027-06":"jxefly","2027-07":"1t4eu7h"
+  };
+  function hashPw(s){let x=5381;for(const ch of s){x=(((x<<5)+x)^ch.codePointAt(0))>>>0}return x.toString(36)}
+  function currentHash(){
+    const d=new Date();const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+    if(MONTH_HASHES[key])return MONTH_HASHES[key];
+    const keys=Object.keys(MONTH_HASHES).sort();return MONTH_HASHES[keys[keys.length-1]];
+  }
+  function checkPw(){
+    const v=document.getElementById("pw").value.trim().toLowerCase();
+    if(hashPw(v)===currentHash()){sessionStorage.setItem("gclub","ok");enter();}
+    else{document.getElementById("gate-error").style.display="block";}
+  }
+  function enter(){
+    document.getElementById("gate").style.display="none";
+    document.getElementById("content").style.display="block";
+  }
+  if(sessionStorage.getItem("gclub")==="ok")enter();
+  document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")checkPw();});
+
+  function copyText(id, btn){
+    navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => {
+      btn.textContent = "✅ コピーしました";
+      btn.classList.add("done");
+      setTimeout(() => { btn.textContent = "📋 コピー"; btn.classList.remove("done"); }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
