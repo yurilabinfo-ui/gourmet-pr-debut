@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<script>
+// LINEアプリ内ブラウザで開かれたら、外部ブラウザ（Safariなど）で開き直す
+if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.href)){
+  location.replace(location.href + (location.search ? "&" : "?") + "openExternalBrowser=1");
+}
+</script>
 <title>💰 ちょっと豊かのお金の話｜グルメPRデビュー部 部室</title>
 <style>
   :root{
