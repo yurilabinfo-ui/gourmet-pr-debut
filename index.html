@@ -338,10 +338,11 @@
     const keys = Object.keys(MONTH_HASHES).sort();
     return MONTH_HASHES[keys[keys.length-1]];
   }
+  function monthKey(){const d = new Date();return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0");}
   function checkPw(){
     const v = document.getElementById("pw").value.trim().toLowerCase();
     if(hashPw(v) === currentHash()){
-      sessionStorage.setItem("gclub","ok");
+      localStorage.setItem("gclub", monthKey());
       enter();
     }else{
       document.getElementById("gate-error").style.display = "block";
@@ -351,7 +352,8 @@
     document.getElementById("gate").style.display = "none";
     document.getElementById("content").style.display = "block";
   }
-  if(sessionStorage.getItem("gclub") === "ok") enter();
+  // その月のあいだは合言葉を記憶（月が変わったら新しい合言葉を入力）
+  if(localStorage.getItem("gclub") === monthKey()) enter();
   document.getElementById("pw").addEventListener("keydown", e => { if(e.key === "Enter") checkPw(); });
 
   function copyText(id, btn){

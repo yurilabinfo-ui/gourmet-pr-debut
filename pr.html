@@ -311,16 +311,17 @@
     if(MONTH_HASHES[key])return MONTH_HASHES[key];
     const keys=Object.keys(MONTH_HASHES).sort();return MONTH_HASHES[keys[keys.length-1]];
   }
+  function monthKey(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
   function checkPw(){
     const v=document.getElementById("pw").value.trim().toLowerCase();
-    if(hashPw(v)===currentHash()){sessionStorage.setItem("gclub","ok");enter();}
+    if(hashPw(v)===currentHash()){localStorage.setItem("gclub",monthKey());enter();}
     else{document.getElementById("gate-error").style.display="block";}
   }
   function enter(){
     document.getElementById("gate").style.display="none";
     document.getElementById("content").style.display="block";
   }
-  if(sessionStorage.getItem("gclub")==="ok")enter();
+  if(localStorage.getItem("gclub")===monthKey())enter();
   document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")checkPw();});
 
   function copyText(id, btn){
