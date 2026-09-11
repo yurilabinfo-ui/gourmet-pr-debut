@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<script>
+// LINEアプリ内ブラウザで開かれたら、外部ブラウザ（Safariなど）で開き直す
+if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.href)){
+  location.replace(location.href + (location.search ? "&" : "?") + "openExternalBrowser=1");
+}
+</script>
+<title>📑 もくじ｜グルメPRデビュー部 部室</title>
+<style>
+  :root{
+    --cream:#FFF8EE; --paper:#FFFFFF; --lemon:#F5C94E; --lemon-dark:#E0A82E;
+    --tomato:#E8604C; --ink:#4A3B2A; --ink-soft:#8A7A64; --line-green:#06C755; --border:#F0E3CC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.8;}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px 60px;}
+  #gate{position:fixed;inset:0;background:var(--cream);z-index:100;
+    display:flex;align-items:center;justify-content:center;padding:24px;}
+  .gate-card{background:var(--paper);border-radius:20px;padding:40px 28px;max-width:380px;width:100%;
+    text-align:center;box-shadow:0 8px 30px rgba(74,59,42,.10);border:1px solid var(--border);}
+  .gate-card .emoji{font-size:44px;}
+  .gate-card h1{font-size:19px;margin:12px 0 4px;}
+  .gate-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+  .gate-card input{width:100%;padding:13px 16px;font-size:16px;border:2px solid var(--border);
+    border-radius:12px;text-align:center;letter-spacing:2px;outline:none;}
+  .gate-card input:focus{border-color:var(--lemon);}
+  .gate-card button{width:100%;margin-top:14px;padding:13px;font-size:15px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border:none;border-radius:12px;cursor:pointer;}
+  .gate-card button:active{background:var(--lemon-dark);}
+  #gate-error{color:var(--tomato);font-size:12px;margin-top:10px;display:none;}
+  header{background:linear-gradient(135deg,#FFE9A8 0%,#FFD97A 100%);
+    padding:36px 18px 30px;text-align:center;border-radius:0 0 28px 28px;margin-bottom:20px;}
+  header .badge{display:inline-block;background:var(--paper);border-radius:999px;
+    padding:4px 14px;font-size:11px;font-weight:bold;color:var(--ink-soft);letter-spacing:1px;margin-bottom:10px;}
+  header h1{font-size:24px;letter-spacing:1px;}
+  header p{font-size:12.5px;color:#7A6230;margin-top:6px;}
+  .club-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:30px;}
+  @media(min-width:520px){.club-nav{grid-template-columns:repeat(4,1fr);}}
+  .club-nav a{text-decoration:none;background:var(--paper);color:var(--ink);
+    font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
+    border:1px solid var(--border);text-align:center;display:block;line-height:1.4;}
+  .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
+  .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
+  section{margin-bottom:30px;}
+  .point{background:#FFF6DE;border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:20px;}
+  .point b{color:#9A7B1E;}
+  footer{text-align:center;font-size:11.5px;color:var(--ink-soft);
+    padding:30px 18px 10px;border-top:1px solid var(--border);margin-top:20px;}
+
+  /* もくじブロック */
+  .toc{background:var(--paper);border:1px solid var(--border);border-radius:16px;
+    overflow:hidden;margin-bottom:14px;}
+  .toc-head{display:flex;align-items:center;gap:10px;padding:16px 18px;
+    background:#FFF6DE;text-decoration:none;color:var(--ink);}
+  .toc-head .ico{font-size:24px;flex-shrink:0;}
+  .toc-head .ttl{flex:1;}
+  .toc-head .ttl b{font-size:16px;display:block;}
+  .toc-head .ttl small{font-size:12px;color:var(--ink-soft);font-weight:normal;}
+  .toc-head .arrow{color:var(--lemon-dark);font-weight:bold;flex-shrink:0;}
+  .toc-body{padding:6px 18px 14px;}
+  .toc-body a{display:block;text-decoration:none;color:var(--ink);font-size:13.5px;
+    padding:9px 0 9px 4px;border-bottom:1px solid #F7EFDE;min-height:42px;}
+  .toc-body a:last-child{border-bottom:none;}
+  .toc-body a::before{content:"– ";color:var(--lemon-dark);font-weight:bold;}
+  .toc-body a small{display:block;font-size:11.5px;color:var(--ink-soft);padding-left:14px;}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <div class="emoji">🍽</div>
+    <h1>グルメPRデビュー部 部室</h1>
+    <p>部員専用ページです。<br>合言葉を入力してね</p>
+    <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
+    <button onclick="checkPw()">部室に入る</button>
+    <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<header>
+  <div class="badge">部員専用 MEMBERS ONLY</div>
+  <h1>📑 もくじ</h1>
+  <p>部室のどこに何があるか、ぜんぶここに</p>
+</header>
+
+<div class="wrap">
+
+<nav class="club-nav">
+  <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
+  <a href="mokuji.html" class="here"><span class="icon">📑</span>もくじ</a>
+  <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
+  <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
+  <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
+  <a href="archive.html"><span class="icon">🎬</span>アーカイブ室</a>
+  <a href="pr.html"><span class="icon">🍋</span>PRのトリセツ</a>
+  <a href="money.html"><span class="icon">💰</span>お金の話</a>
+</nav>
+
+<div class="point"><b>使いかた：</b>見たい項目をタップすると、その場所に直接ジャンプします。「あれどこに書いてあったっけ？」はここから探してね🔎</div>
+
+<!-- 今月の部活 -->
+<section>
+  <div class="toc">
+    <a class="toc-head" href="index.html">
+      <span class="ico">🏠</span>
+      <span class="ttl"><b>今月の部活</b><small>毎月ここが入れ替わります</small></span>
+      <span class="arrow">→</span>
+    </a>
+    <div class="toc-body">
+      <a href="index.html#theme">今月のテーマ<small>今月やること3つ</small></a>
+      <a href="index.html#news">お知らせ・次回予告</a>
+      <a href="index.html#new-items">今月の新着</a>
+      <a href="index.html#pr-report">初PR報告コーナー<small>報告テンプレあり🎉</small></a>
+      <a href="index.html#members">部員のアカウント帳</a>
+    </div>
+  </div>
+</section>
+
+<!-- 入部案内 -->
+<section>
+  <div class="toc">
+    <a class="toc-head" href="nyubu.html">
+      <span class="ico">🌱</span>
+      <span class="ttl"><b>入部案内</b><small>はじめての人はここから</small></span>
+      <span class="arrow">→</span>
+    </a>
+    <div class="toc-body">
+      <a href="nyubu.html#welcome">ようこそ｜この部活のゴール</a>
+      <a href="nyubu.html#walk">部室の歩き方</a>
+      <a href="nyubu.html#openchat">交流の場の使い方<small>自己紹介テンプレ・質問のコツ</small></a>
+      <a href="nyubu.html#rules">部のルール</a>
+      <a href="nyubu.html#fee">会費でできること</a>
+      <a href="nyubu.html#renewal">更新・退会について<small>毎月20日案内・25日まで</small></a>
+    </div>
+  </div>
+</section>
+
+<!-- はじめの30日 -->
+<section>
+  <div class="toc">
+    <a class="toc-head" href="30days.html">
+      <span class="ico">🚀</span>
+      <span class="ttl"><b>はじめの30日</b><small>入部した月にやること・チェック式</small></span>
+      <span class="arrow">→</span>
+    </a>
+    <div class="toc-body">
+      <a href="30days.html#w1">1週目：アカウントを「PRされる形」に</a>
+      <a href="30days.html#w2">2週目：投稿を始める</a>
+      <a href="30days.html#w3">3週目：交流を始める</a>
+      <a href="30days.html#w4">4週目：初PRに挑戦する</a>
+      <a href="30days.html#progress">30日の進みぐあい</a>
+    </div>
+  </div>
+</section>
+
+<!-- 攻略MAP＋教材 -->
+<section>
+  <div class="toc">
+    <a class="toc-head" href="lessons.html">
+      <span class="ico">🗺</span>
+      <span class="ttl"><b>攻略MAP＋教材</b><small>迷ったらここ。辞書みたいに使う</small></span>
+      <span class="arrow">→</span>
+    </a>
+    <div class="toc-body">
+      <a href="lessons.html#map">デビューまでの全体MAP</a>
+      <a href="lessons.html#lesson0">第0講：インスタに正しく覚えてもらう話</a>
+      <a href="lessons.html#phase1">フェーズ1：準備<small>プロフィール文／撮影3つの約束／小ワザ5つ／加工の数字</small></a>
+      <a href="lessons.html#phase2">フェーズ2：発信<small>ギャップ型タイトル／保存キャプション／ハッシュタグ5個／文字入れ／サイズ早見表／リール／交流</small></a>
+      <a href="lessons.html#phase3">フェーズ3：デビュー<small>ステマ規制のルール／AI活用</small></a>
+      <a href="lessons.html#dict">グルメ部用語辞典</a>
+    </div>
+  </div>
+</section>
+
+<!-- アーカイブ室 -->
+<section>
+  <div class="toc">
+    <a class="toc-head" href="archive.html">
+      <span class="ico">🎬</span>
+      <span class="ttl"><b>アーカイブ室</b><small>イベント録画はぜんぶここ</small></span>
+      <span class="arrow">→</span>
+    </a>
+    <div class="toc-body">
+      <a href="archive.html#m2026-07">2026年7月｜質問＆作業会</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRのトリセツ -->
+<section>
+  <div class="toc">
+    <a class="toc-head" href="pr.html">
+      <span class="ico">🍋</span>
+      <span class="ttl"><b>PR案件のトリセツ</b><small>ご招待のもらい方の全部</small></span>
+      <span class="arrow">→</span>
+    </a>
+    <div class="toc-body">
+      <a href="pr.html#routes">PRが来る3つのルート</a>
+      <a href="pr.html#level">いまの自分は何をすればいい？<small>フォロワー数別の戦略</small></a>
+      <a href="pr.html#services">案件サービス比較<small>トリドリ／モグカツ／Woomy／Beee／ユニット／TAGZ／KYAM.PUS</small></a>
+      <a href="pr.html#label">タイアップ投稿ラベルの設定手順</a>
+      <a href="pr.html#warning">気をつけて！こんな勧誘は要注意</a>
+      <a href="pr.html#manner">ご招待されたときのマナー</a>
+    </div>
+  </div>
+</section>
+
+<!-- お金の話 -->
+<section>
+  <div class="toc">
+    <a class="toc-head" href="money.html">
+      <span class="ico">💰</span>
+      <span class="ttl"><b>ちょっと豊かのお金の話</b><small>もらって終わりにしないために</small></span>
+      <span class="arrow">→</span>
+    </a>
+    <div class="toc-body">
+      <a href="money.html#gifting">無料ごはんも「収入」になる話</a>
+      <a href="money.html#line">確定申告が必要になるライン</a>
+      <a href="money.html#keihi">経費にできるもの・領収書の習慣</a>
+      <a href="money.html#matome">まとめ</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  🍽 グルメPRデビュー部｜すみれもん<br>
+  URL・合言葉・部室の中身（教材・スクショ）は、部員だけのひみつだよ
+</footer>
+
+</div>
+
+<script>
+  const MONTH_HASHES = {
+    "2026-07":"1gg0ouu","2026-08":"16eci0","2026-09":"1yvqjop","2026-10":"1mq4phq",
+    "2026-11":"pj0jcg","2026-12":"pfgine","2027-01":"iozeqs","2027-02":"1r6tt0v",
+    "2027-03":"18mzzbt","2027-04":"10fcuer","2027-05":"oewxte","2027-06":"jxefly","2027-07":"1t4eu7h"
+  };
+  function hashPw(s){let x=5381;for(const ch of s){x=(((x<<5)+x)^ch.codePointAt(0))>>>0}return x.toString(36)}
+  function currentHash(){
+    const d=new Date();const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+    if(MONTH_HASHES[key])return MONTH_HASHES[key];
+    const keys=Object.keys(MONTH_HASHES).sort();return MONTH_HASHES[keys[keys.length-1]];
+  }
+  function monthKey(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
+  function checkPw(){
+    const v=document.getElementById("pw").value.trim().toLowerCase();
+    if(hashPw(v)===currentHash()){localStorage.setItem("gclub",monthKey());enter();}
+    else{document.getElementById("gate-error").style.display="block";}
+  }
+  function enter(){
+    document.getElementById("gate").style.display="none";
+    document.getElementById("content").style.display="block";
+  }
+  if(localStorage.getItem("gclub")===monthKey())enter();
+  document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")checkPw();});
+</script>
+
+</body>
+</html>
