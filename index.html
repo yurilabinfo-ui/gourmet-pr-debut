@@ -82,6 +82,8 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
     font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
     border:1px solid var(--border);text-align:center;display:block;line-height:1.4;
   }
+  .club-nav a:last-child:nth-child(odd){grid-column:1/-1;}
+  @media(min-width:520px){.club-nav a:last-child:nth-child(odd){grid-column:auto;}}
   .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
   .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
   .club-nav span.soon{opacity:.45;}
@@ -175,7 +177,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   <div class="gate-card">
     <div class="emoji">🍽</div>
     <h1>グルメPRデビュー部 部室</h1>
-    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <p>部員専用ページです。<br>合言葉を入力してね</p>
     <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
     <button onclick="checkPw()">部室に入る</button>
     <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
@@ -196,6 +198,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
 <nav class="club-nav">
   <a href="index.html" class="here"><span class="icon">🏠</span>今月の部活</a>
   <a href="mokuji.html"><span class="icon">📑</span>もくじ</a>
+  <a href="board.html"><span class="icon">💬</span>掲示板</a>
   <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
   <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
   <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
@@ -247,7 +250,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
 <section id="pr-report">
   <h2>🎉 初PR報告コーナー</h2>
   <div class="card">
-    <h3>初めてのPR・ご招待が決まったら、オプチャで教えてね！</h3>
+    <h3>初めてのPR・ご招待が決まったら、掲示板で教えてね！</h3>
     <p>この部活は、フォロワーの数より<b>「初PRをもらえた」</b>をみんなで祝う部活です。どんなに小さな案件でも立派なデビュー。ここに殿堂入りしていきます🏆</p>
     <pre id="tpl-report">🎉 初PR報告です！
 【お店・案件】◯◯
@@ -297,16 +300,16 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
       <span class="arrow">→</span>
     </a>
   </div>
-  <p style="font-size:12px;color:var(--ink-soft);margin-top:10px;">載せたい人・外したい人・表記を直したい人はオプチャでどうぞ！</p>
+  <p style="font-size:12px;color:var(--ink-soft);margin-top:10px;">載せたい人・外したい人・表記を直したい人は掲示板でどうぞ！</p>
 </section>
 
 <!-- ===== LINE導線 ===== -->
 <section>
   <div class="line-cta">
-    <h3 style="font-size:15px;margin-bottom:6px;">質問・相談はオプチャでどうぞ🍋</h3>
+    <h3 style="font-size:15px;margin-bottom:6px;">質問・相談は掲示板でどうぞ🍋</h3>
     <p style="font-size:13px;color:var(--ink-soft);">質問はみんなの勉強にもなるので、遠慮なく書き込んでね</p>
-    <a class="btn" href="https://line.me/ti/g2/eJQAsU2uIGpCUJVZcePQpy3ObQJae8iDsWVccw" target="_blank" rel="noopener">オプチャを開く</a>
-    <p style="font-size:12px;color:var(--ink-soft);margin-top:8px;">参加コードは入部時にお伝えしたものを入れてね</p>
+    <a class="btn" href="board.html">💬 掲示板を開く</a>
+    
   </div>
 </section>
 

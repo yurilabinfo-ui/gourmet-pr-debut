@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<script>
+if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.href)){
+  location.replace(location.href + (location.search ? "&" : "?") + "openExternalBrowser=1");
+}
+</script>
+<title>💬 掲示板｜グルメPRデビュー部 部室</title>
+<style>
+  :root{
+    --cream:#FFF8EE; --paper:#FFFFFF; --lemon:#F5C94E; --lemon-dark:#E0A82E;
+    --tomato:#E8604C; --ink:#4A3B2A; --ink-soft:#8A7A64; --line-green:#06C755; --border:#F0E3CC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.8;}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px 60px;}
+  #gate{position:fixed;inset:0;background:var(--cream);z-index:100;
+    display:flex;align-items:center;justify-content:center;padding:24px;}
+  .gate-card{background:var(--paper);border-radius:20px;padding:40px 28px;max-width:380px;width:100%;
+    text-align:center;box-shadow:0 8px 30px rgba(74,59,42,.10);border:1px solid var(--border);}
+  .gate-card .emoji{font-size:44px;}
+  .gate-card h1{font-size:19px;margin:12px 0 4px;}
+  .gate-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+  .gate-card input{width:100%;padding:13px 16px;font-size:16px;border:2px solid var(--border);
+    border-radius:12px;text-align:center;letter-spacing:2px;outline:none;}
+  .gate-card input:focus{border-color:var(--lemon);}
+  .gate-card button{width:100%;margin-top:14px;padding:13px;font-size:15px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border:none;border-radius:12px;cursor:pointer;}
+  .gate-card button:active{background:var(--lemon-dark);}
+  #gate-error{color:var(--tomato);font-size:12px;margin-top:10px;display:none;}
+  header{background:linear-gradient(135deg,#FFE9A8 0%,#FFD97A 100%);
+    padding:36px 18px 30px;text-align:center;border-radius:0 0 28px 28px;margin-bottom:20px;}
+  header .badge{display:inline-block;background:var(--paper);border-radius:999px;
+    padding:4px 14px;font-size:11px;font-weight:bold;color:var(--ink-soft);letter-spacing:1px;margin-bottom:10px;}
+  header h1{font-size:24px;letter-spacing:1px;}
+  header p{font-size:12.5px;color:#7A6230;margin-top:6px;}
+  .club-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:26px;}
+  @media(min-width:520px){.club-nav{grid-template-columns:repeat(4,1fr);}}
+  .club-nav a{text-decoration:none;background:var(--paper);color:var(--ink);
+    font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
+    border:1px solid var(--border);text-align:center;display:block;line-height:1.4;}
+  .club-nav a:last-child:nth-child(odd){grid-column:1/-1;}
+  @media(min-width:520px){.club-nav a:last-child:nth-child(odd){grid-column:auto;}}
+  .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
+  .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
+  h2{font-size:18px;display:flex;align-items:center;gap:8px;
+    padding-bottom:8px;border-bottom:3px solid var(--lemon);margin-bottom:16px;}
+  section{margin-bottom:30px;}
+  .point{background:#FFF6DE;border-radius:10px;padding:10px 14px;font-size:13px;margin-top:10px;}
+  .point b{color:#9A7B1E;}
+  footer{text-align:center;font-size:11.5px;color:var(--ink-soft);
+    padding:30px 18px 10px;border-top:1px solid var(--border);margin-top:20px;}
+
+  /* 今月のお題 */
+  .odai{background:linear-gradient(135deg,#FFF3D6 0%,#FFEAB8 100%);
+    border:1px solid #F2DA9A;border-radius:16px;padding:18px 20px;margin-bottom:18px;}
+  .odai .lbl{font-size:11.5px;font-weight:bold;color:#9A7B1E;letter-spacing:1px;}
+  .odai h3{font-size:16px;margin:4px 0 6px;}
+  .odai p{font-size:13.5px;}
+
+  /* 投稿フォーム */
+  .form{background:var(--paper);border:1px solid var(--border);border-radius:16px;
+    padding:18px;margin-bottom:22px;}
+  .form label{display:block;font-size:12px;font-weight:bold;color:var(--ink-soft);margin:10px 0 4px;}
+  .form input[type=text], .form textarea{
+    width:100%;padding:12px 14px;font-size:16px;border:2px solid var(--border);
+    border-radius:12px;outline:none;font-family:inherit;background:#FFFDF9;color:var(--ink);}
+  .form input[type=text]:focus, .form textarea:focus{border-color:var(--lemon);}
+  .form textarea{min-height:110px;line-height:1.7;resize:vertical;}
+  .cats{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px;}
+  .cats label{margin:0;}
+  .cats input{position:absolute;opacity:0;pointer-events:none;}
+  .cats span{display:inline-block;padding:9px 14px;border-radius:999px;font-size:13px;
+    font-weight:bold;border:2px solid var(--border);background:#FFFDF9;cursor:pointer;}
+  .cats input:checked + span{background:var(--lemon);border-color:var(--lemon);}
+  .send{width:100%;margin-top:14px;padding:14px;font-size:15px;font-weight:bold;
+    background:var(--lemon);color:var(--ink);border:none;border-radius:12px;cursor:pointer;}
+  .send:active{background:var(--lemon-dark);}
+  .send:disabled{opacity:.5;}
+  .msg{font-size:13px;margin-top:10px;text-align:center;display:none;}
+  .msg.ok{color:#3E7A2E;display:block;}
+  .msg.ng{color:var(--tomato);display:block;}
+
+  /* 投稿一覧 */
+  .post{background:var(--paper);border:1px solid var(--border);border-radius:16px;
+    padding:16px 18px;margin-bottom:12px;}
+  .post-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+  .post-name{font-size:14px;font-weight:bold;}
+  .post-cat{font-size:10.5px;font-weight:bold;padding:2px 10px;border-radius:999px;
+    background:#FFF1CC;color:#9A7B1E;}
+  .post-cat.pr{background:#FFE3DD;color:var(--tomato);}
+  .post-cat.q{background:#E8F0FE;color:#3A6BC9;}
+  .post-date{font-size:11px;color:var(--ink-soft);margin-left:auto;}
+  .post-text{font-size:14px;white-space:pre-wrap;word-break:break-word;}
+  .empty{border:2px dashed var(--border);color:var(--ink-soft);text-align:center;
+    font-size:13.5px;padding:28px 16px;border-radius:16px;}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <div class="emoji">🍽</div>
+    <h1>グルメPRデビュー部 部室</h1>
+    <p>部員専用ページです。<br>合言葉を入力してね</p>
+    <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
+    <button onclick="checkPw()">部室に入る</button>
+    <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<header>
+  <div class="badge">部員専用 MEMBERS ONLY</div>
+  <h1>💬 掲示板</h1>
+  <p>報告・質問・雑談、なんでもどうぞ</p>
+</header>
+
+<div class="wrap">
+
+<nav class="club-nav">
+  <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
+  <a href="mokuji.html"><span class="icon">📑</span>もくじ</a>
+  <a href="board.html" class="here"><span class="icon">💬</span>掲示板</a>
+  <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
+  <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
+  <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
+  <a href="archive.html"><span class="icon">🎬</span>アーカイブ室</a>
+  <a href="pr.html"><span class="icon">🍋</span>PRのトリセツ</a>
+  <a href="money.html"><span class="icon">💰</span>お金の話</a>
+</nav>
+
+<!-- ✏️ 今月のお題は毎月ここを書き換える -->
+<div class="odai">
+  <div class="lbl">今月のお題</div>
+  <h3>この秋、行ってみたいお店は？</h3>
+  <p>気になってるお店・行ってよかったお店を1つ教えてください🍂 エリアがバラバラな部活なので、みんなの「いいな」がそのまま旅のメモになります。</p>
+</div>
+
+<!-- 書き込みフォーム -->
+<section>
+  <div class="form">
+    <label for="name">お名前（ニックネームでOK）</label>
+    <input type="text" id="name" maxlength="20" placeholder="すみれもん">
+
+    <label>種類</label>
+    <div class="cats">
+      <label><input type="radio" name="cat" value="💬 ひとこと" checked><span>💬 ひとこと</span></label>
+      <label><input type="radio" name="cat" value="🎉 初PR報告"><span>🎉 初PR報告</span></label>
+      <label><input type="radio" name="cat" value="❓ 質問"><span>❓ 質問</span></label>
+    </div>
+
+    <label for="text">本文</label>
+    <textarea id="text" maxlength="1000" placeholder="どんな小さなことでも大歓迎です🍋"></textarea>
+
+    <button class="send" id="send" onclick="post()">書き込む</button>
+    <div class="msg" id="msg"></div>
+  </div>
+</section>
+
+<!-- 一覧 -->
+<section>
+  <h2>📋 みんなの書き込み</h2>
+  <div id="list"><div class="empty">読み込み中…</div></div>
+</section>
+
+<div class="point"><b>お願い：</b>ここは部員だけの場所です。お店の悪口・個人が特定される情報・他の人への押しつけはナシでいきましょう。消したい書き込みがあったら、すみれもんに言ってね。</div>
+
+</div>
+
+<footer>
+  🍽 グルメPRデビュー部｜すみれもん<br>
+  URL・合言葉・部室の中身（教材・スクショ）は、部員だけのひみつだよ
+</footer>
+
+</div>
+
+<script>
+  /* ===== 合言葉ゲート ===== */
+  const MONTH_HASHES = {
+    "2026-07":"1gg0ouu","2026-08":"16eci0","2026-09":"1yvqjop","2026-10":"1mq4phq",
+    "2026-11":"pj0jcg","2026-12":"pfgine","2027-01":"iozeqs","2027-02":"1r6tt0v",
+    "2027-03":"18mzzbt","2027-04":"10fcuer","2027-05":"oewxte","2027-06":"jxefly","2027-07":"1t4eu7h"
+  };
+  function hashPw(s){let x=5381;for(const ch of s){x=(((x<<5)+x)^ch.codePointAt(0))>>>0}return x.toString(36)}
+  function currentHash(){
+    const d=new Date();const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+    if(MONTH_HASHES[key])return MONTH_HASHES[key];
+    const keys=Object.keys(MONTH_HASHES).sort();return MONTH_HASHES[keys[keys.length-1]];
+  }
+  function monthKey(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
+  function checkPw(){
+    const v=document.getElementById("pw").value.trim().toLowerCase();
+    if(hashPw(v)===currentHash()){localStorage.setItem("gclub",monthKey());enter();}
+    else{document.getElementById("gate-error").style.display="block";}
+  }
+  function enter(){
+    document.getElementById("gate").style.display="none";
+    document.getElementById("content").style.display="block";
+    load();
+  }
+  if(localStorage.getItem("gclub")===monthKey())enter();
+  document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")checkPw();});
+
+  /* ===== 掲示板 ===== */
+  const GAS_URL = ""; // ← ここにApps ScriptのURLを入れます
+
+  const nameEl = document.getElementById("name");
+  nameEl.value = localStorage.getItem("gclubname") || "";
+
+  function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+  function fmt(iso){
+    if(!iso) return "";
+    const d=new Date(iso);
+    return (d.getMonth()+1)+"/"+d.getDate()+" "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  }
+  function catClass(c){ return c.indexOf("PR")>=0 ? "pr" : (c.indexOf("質問")>=0 ? "q" : ""); }
+
+  function render(posts){
+    const list=document.getElementById("list");
+    if(!posts || !posts.length){
+      list.innerHTML='<div class="empty">まだ書き込みはありません。<br>いちばん乗り、してみませんか？🍋</div>';
+      return;
+    }
+    list.innerHTML = posts.map(p =>
+      '<div class="post"><div class="post-head">'+
+      '<span class="post-name">'+esc(p.name)+'</span>'+
+      (p.cat?'<span class="post-cat '+catClass(p.cat)+'">'+esc(p.cat)+'</span>':'')+
+      '<span class="post-date">'+fmt(p.t)+'</span></div>'+
+      '<div class="post-text">'+esc(p.text)+'</div></div>'
+    ).join("");
+  }
+
+  async function load(){
+    const list=document.getElementById("list");
+    if(!GAS_URL){
+      list.innerHTML='<div class="empty">掲示板はただいま準備中です🔧<br>もうすぐ使えるようになります！</div>';
+      return;
+    }
+    try{
+      const r = await fetch(GAS_URL, {method:"GET"});
+      const d = await r.json();
+      render(d.posts);
+    }catch(e){
+      list.innerHTML='<div class="empty">読み込みに失敗しました…<br>電波のいいところで開き直してみてね</div>';
+    }
+  }
+
+  async function post(){
+    const msg=document.getElementById("msg");
+    const btn=document.getElementById("send");
+    const name=nameEl.value.trim();
+    const text=document.getElementById("text").value.trim();
+    const cat=document.querySelector('input[name=cat]:checked').value;
+    msg.className="msg";
+    if(!name){ msg.className="msg ng"; msg.textContent="お名前を入れてね"; return; }
+    if(!text){ msg.className="msg ng"; msg.textContent="本文を入れてね"; return; }
+    if(!GAS_URL){ msg.className="msg ng"; msg.textContent="掲示板はまだ準備中です🔧"; return; }
+    localStorage.setItem("gclubname", name);
+    btn.disabled=true; btn.textContent="送信中…";
+    try{
+      await fetch(GAS_URL, {
+        method:"POST",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body: JSON.stringify({name:name, cat:cat, text:text})
+      });
+      document.getElementById("text").value="";
+      msg.className="msg ok"; msg.textContent="書き込みました！ありがとう🍋";
+      setTimeout(load, 800);
+    }catch(e){
+      msg.className="msg ng"; msg.textContent="うまく送れませんでした…もう一度試してみてね";
+    }finally{
+      btn.disabled=false; btn.textContent="書き込む";
+    }
+  }
+</script>
+
+</body>
+</html>

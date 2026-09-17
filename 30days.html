@@ -45,6 +45,8 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   .club-nav a{text-decoration:none;background:var(--paper);color:var(--ink);
     font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
     border:1px solid var(--border);text-align:center;display:block;line-height:1.4;}
+  .club-nav a:last-child:nth-child(odd){grid-column:1/-1;}
+  @media(min-width:520px){.club-nav a:last-child:nth-child(odd){grid-column:auto;}}
   .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
   .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
   section{margin-bottom:38px;}
@@ -102,7 +104,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   <div class="gate-card">
     <div class="emoji">🍽</div>
     <h1>グルメPRデビュー部 部室</h1>
-    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <p>部員専用ページです。<br>合言葉を入力してね</p>
     <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
     <button onclick="checkPw()">部室に入る</button>
     <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
@@ -122,6 +124,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
 <nav class="club-nav">
   <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
   <a href="mokuji.html"><span class="icon">📑</span>もくじ</a>
+  <a href="board.html"><span class="icon">💬</span>掲示板</a>
   <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
   <a href="30days.html" class="here"><span class="icon">🚀</span>はじめの30日</a>
   <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
@@ -148,7 +151,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
     <div class="check" data-k="w1-2"><span class="box"></span><span class="txt">名前を決める<small>「エリア＋グルメ＋名前」が見つけてもらいやすい（例：◯◯グルメ｜なまえ）</small></span></div>
     <div class="check" data-k="w1-3"><span class="box"></span><span class="txt">プロフィール文を書く<small>「フォローすると何がいいか」を言い切る。型は攻略MAPにあります</small></span></div>
     <div class="check" data-k="w1-4"><span class="box"></span><span class="txt">プロアカウントに切り替える<small>設定→アカウントの種類とツール→プロアカウント。無料で、閲覧データが見られるようになりPRにも必須</small></span></div>
-    <div class="check" data-k="w1-5"><span class="box"></span><span class="txt">オプチャで自己紹介する<small>テンプレは入部案内にあります</small></span></div>
+    <div class="check" data-k="w1-5"><span class="box"></span><span class="txt">掲示板で自己紹介する<small>テンプレは入部案内にあります</small></span></div>
   </div>
 </section>
 
@@ -200,7 +203,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   <div class="card">
     <div class="progress"><div class="bar" id="bar"></div></div>
     <div class="progress-label" id="bar-label">0 / 20</div>
-    <p style="margin-top:10px;">全部にチェックが付いたら、オプチャで「30日完走しました！」と報告してね🎉 完走した月から、あなたはもう「発信している人」です。</p>
+    <p style="margin-top:10px;">全部にチェックが付いたら、掲示板で「30日完走しました！」と報告してね🎉 完走した月から、あなたはもう「発信している人」です。</p>
     <div class="point"><b>30日が終わったら：</b>「攻略MAP＋教材」のフェーズ2〜3に進んで、投稿の腕とPR獲得力を上げていこう。毎月の「今月の部活」も忘れずにチェック！</div>
   </div>
 </section>

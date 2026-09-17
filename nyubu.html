@@ -82,6 +82,8 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
     font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
     border:1px solid var(--border);text-align:center;display:block;line-height:1.4;
   }
+  .club-nav a:last-child:nth-child(odd){grid-column:1/-1;}
+  @media(min-width:520px){.club-nav a:last-child:nth-child(odd){grid-column:auto;}}
   .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
   .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
   .club-nav span.soon{opacity:.45;}
@@ -154,7 +156,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   <div class="gate-card">
     <div class="emoji">🍽</div>
     <h1>グルメPRデビュー部 部室</h1>
-    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <p>部員専用ページです。<br>合言葉を入力してね</p>
     <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
     <button onclick="checkPw()">部室に入る</button>
     <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
@@ -175,6 +177,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
 <nav class="club-nav">
   <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
   <a href="mokuji.html"><span class="icon">📑</span>もくじ</a>
+  <a href="board.html"><span class="icon">💬</span>掲示板</a>
   <a href="nyubu.html" class="here"><span class="icon">🌱</span>入部案内</a>
   <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
   <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
@@ -215,18 +218,18 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
     </div>
     <div class="walk">
       <span class="num">4</span>
-      <div><b>わからなかったら → オプチャで質問</b>
+      <div><b>わからなかったら → 掲示板で質問</b>
       <p>質問はみんなの財産。「こんなこと聞いていいのかな」ほど価値があります。</p></div>
     </div>
   </div>
 </section>
 
-<!-- ===== オプチャの使い方 ===== -->
+<!-- ===== 掲示板の使い方 ===== -->
 <section id="openchat">
-  <h2>💬 オプチャの使い方</h2>
+  <h2>💬 掲示板の使い方</h2>
   <div class="card">
     <h3>まずは自己紹介からどうぞ</h3>
-    <p>入部したら、下のテンプレをコピーして自己紹介を投稿してね。仲間に知ってもらうことが、応援し合いのスタートです。</p>
+    <p>入部したら、部室の<b>掲示板</b>に自己紹介を書き込んでみてね。下のテンプレをコピーして使えます。仲間に知ってもらうことが、応援し合いのスタートです。</p>
     <pre id="tpl-intro">🍽 はじめまして！
 【呼ばれたい名前】
 【住んでるエリア】◯◯（ざっくりでOK）
@@ -234,11 +237,12 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
 【インスタ】やってる（@◯◯）／これから作る
 【ひとこと】</pre>
     <button class="copy-btn" onclick="copyText('tpl-intro',this)">📋 自己紹介テンプレをコピー</button>
+    <div style="margin-top:12px;"><a class="btn" href="board.html">💬 掲示板を開く</a></div>
   </div>
   <div class="card">
     <h3>質問するときのコツ</h3>
     <ul class="simple">
-      <li>質問は<b>オプチャに直接</b>どうぞ（個別DMより、みんなの勉強になります）</li>
+      <li>質問は<b>掲示板に直接</b>どうぞ（個別DMより、みんなの勉強になります）</li>
       <li>「◯◯がわからない」だけでOK。うまく説明できなくて大丈夫</li>
       <li>スクショを付けると答えやすいです（個人情報は隠してね）</li>
       <li>仲間の質問に「私もそれ知りたい」の一言も立派な参加です</li>
@@ -255,7 +259,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
       <li><b>比べない</b>：他の部員と進み具合を比べて落ち込む必要はゼロ。昨日の自分と比べよう</li>
       <li><b>やさしい言葉で</b>：誹謗中傷・マウント・押し付けはNG</li>
       <li><b>パクらない</b>：投稿の文章・画像の丸写しはダメ。「型」は真似してOK、「言葉」は自分のものを</li>
-      <li><b>勧誘・販売はしない</b>：オプチャ内での商品販売・他サービスへの勧誘は禁止</li>
+      <li><b>勧誘・販売はしない</b>：掲示板での商品販売・他サービスへの勧誘は禁止</li>
       <li><b>部室のことは部員だけの秘密</b>：URL・合言葉はもちろん、<b>中身（教材・テンプレ・録画・スクショ）も部外への共有・転載はNG</b>です。ここにあるのは部員だけの財産。「友達にちょっと見せる」もナシでお願いします</li>
     </ul>
   </div>
@@ -271,7 +275,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
         <td>
           ・部室サイトの全コンテンツ見放題<br>
           ・イベント録画のアーカイブ視聴<br>
-          ・オプチャでの質問・交流<br>
+          ・掲示板での質問・交流<br>
           ・月イチ開催のオンラインイベント参加
         </td>
         <td>
@@ -292,14 +296,14 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
     <p>この部活は<b>1ヶ月ごとの更新制</b>です。「今月も居たいな」と思ってもらえるように毎月新しいコンテンツをお届けしますが、続けるかどうかは毎月あなたが選べます。</p>
     <h3 style="margin-top:14px;">更新のしかた</h3>
     <ul class="simple" style="margin-top:6px;">
-      <li><b>毎月20日</b>ごろ、オプチャに更新のご案内（PayPay・銀行振込の振込先）が届きます</li>
-      <li><b>期限は25日</b>。お支払いしたら、オプチャで「支払いました」と報告してね</li>
+      <li><b>毎月20日</b>ごろ、LINEで更新のご案内（PayPay・銀行振込の振込先）が届きます</li>
+      <li><b>期限は25日</b>。お支払いしたら、LINEで「支払いました」と教えてね</li>
       <li>更新した人には、翌月の合言葉が届きます</li>
       <li>クレジットカード払いは準備中です。使えるようになったら案内します</li>
     </ul>
     <h3 style="margin-top:14px;">退会について</h3>
     <ul class="simple" style="margin-top:6px;">
-      <li>25日までにお支払いがない場合は「今月で卒業」となり、<b>月末23:59にオプチャ退会</b>となります（手続き不要）</li>
+      <li>25日までにお支払いがない場合は「今月で卒業」となり、<b>翌月の合言葉はお送りしません</b>（手続き不要です）</li>
       <li>退会後も、それまでに学んだことはぜんぶあなたのもの。いつでもまた戻ってきてね</li>
     </ul>
   </div>

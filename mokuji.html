@@ -45,6 +45,8 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   .club-nav a{text-decoration:none;background:var(--paper);color:var(--ink);
     font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
     border:1px solid var(--border);text-align:center;display:block;line-height:1.4;}
+  .club-nav a:last-child:nth-child(odd){grid-column:1/-1;}
+  @media(min-width:520px){.club-nav a:last-child:nth-child(odd){grid-column:auto;}}
   .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
   .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
   section{margin-bottom:30px;}
@@ -97,6 +99,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
 <nav class="club-nav">
   <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
   <a href="mokuji.html" class="here"><span class="icon">📑</span>もくじ</a>
+  <a href="board.html"><span class="icon">💬</span>掲示板</a>
   <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
   <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
   <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
@@ -125,6 +128,21 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   </div>
 </section>
 
+<!-- 掲示板 -->
+<section>
+  <div class="toc">
+    <a class="toc-head" href="board.html">
+      <span class="ico">💬</span>
+      <span class="ttl"><b>掲示板</b><small>報告・質問・雑談はここへ</small></span>
+      <span class="arrow">→</span>
+    </a>
+    <div class="toc-body">
+      <a href="board.html">今月のお題を見る／書き込む</a>
+      <a href="board.html">みんなの書き込みを読む</a>
+    </div>
+  </div>
+</section>
+
 <!-- 入部案内 -->
 <section>
   <div class="toc">
@@ -136,7 +154,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
     <div class="toc-body">
       <a href="nyubu.html#welcome">ようこそ｜この部活のゴール</a>
       <a href="nyubu.html#walk">部室の歩き方</a>
-      <a href="nyubu.html#openchat">交流の場の使い方<small>自己紹介テンプレ・質問のコツ</small></a>
+      <a href="nyubu.html#openchat">掲示板の使い方<small>自己紹介テンプレ・質問のコツ</small></a>
       <a href="nyubu.html#rules">部のルール</a>
       <a href="nyubu.html#fee">会費でできること</a>
       <a href="nyubu.html#renewal">更新・退会について<small>毎月20日案内・25日まで</small></a>

@@ -45,6 +45,8 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   .club-nav a{text-decoration:none;background:var(--paper);color:var(--ink);
     font-size:12px;font-weight:bold;padding:12px 6px;border-radius:14px;
     border:1px solid var(--border);text-align:center;display:block;line-height:1.4;}
+  .club-nav a:last-child:nth-child(odd){grid-column:1/-1;}
+  @media(min-width:520px){.club-nav a:last-child:nth-child(odd){grid-column:auto;}}
   .club-nav .icon{display:block;font-size:20px;margin-bottom:2px;}
   .club-nav a.here{background:var(--lemon);border-color:var(--lemon);}
   section{margin-bottom:38px;}
@@ -74,7 +76,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
   <div class="gate-card">
     <div class="emoji">🍽</div>
     <h1>グルメPRデビュー部 部室</h1>
-    <p>部員専用ページです。<br>オプチャと同じ合言葉を入力してね</p>
+    <p>部員専用ページです。<br>合言葉を入力してね</p>
     <input type="password" id="pw" placeholder="合言葉" autocomplete="off">
     <button onclick="checkPw()">部室に入る</button>
     <div id="gate-error">合言葉がちがうみたい…もう一度どうぞ</div>
@@ -94,6 +96,7 @@ if(/ Line\//i.test(navigator.userAgent) && !/openExternalBrowser/.test(location.
 <nav class="club-nav">
   <a href="index.html"><span class="icon">🏠</span>今月の部活</a>
   <a href="mokuji.html"><span class="icon">📑</span>もくじ</a>
+  <a href="board.html"><span class="icon">💬</span>掲示板</a>
   <a href="nyubu.html"><span class="icon">🌱</span>入部案内</a>
   <a href="30days.html"><span class="icon">🚀</span>はじめの30日</a>
   <a href="lessons.html"><span class="icon">🗺</span>攻略MAP＋教材</a>
